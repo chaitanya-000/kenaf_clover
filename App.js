@@ -5,9 +5,10 @@ import { width, height } from "./helperFunction";
 import Payment from "./src/screens/Payment";
 import QuickSale from "./src/screens/QuickSale";
 import Refund from "./src/screens/Refund";
+import Dashboard from "./src/screens/Dashboard";
 
 export default function App() {
-  return <Refund />;
+  return <Dashboard />;
 }
 
 const styles = StyleSheet.create({

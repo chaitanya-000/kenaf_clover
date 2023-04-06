@@ -19,11 +19,12 @@ import {
   InformativeFooterText,
   LineDivider,
 } from "../../styledComponents";
+<Ionicons name="md-arrow-back" size={25} color="white" />;
 import { Ionicons } from "@expo/vector-icons";
 import { responsiveFontSize } from "../../helperFunction";
 const Refund = () => {
   return (
-    <KeyboardAvoidingView behavior="height">
+    <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-399}>
       <PageContainer>
         <Header>
           <BackButton>
@@ -111,12 +112,12 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     width: "100%",
-    height: "30%",
+    height: "40%",
     // borderWidth: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    marginTop: "5%",
+    // marginTop: "%",
   },
   lineDivider: {
     width: "90%",
