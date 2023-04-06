@@ -1,20 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity } from "react-native";
+import { width, height } from "./helperFunction";
+import Payment from "./src/screens/Payment";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <Payment />;
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  PageContainer: {
+    width: width,
+    height: height,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "blue",
+  },
+  box: {
+    width: "20%",
+    height: "20%",
+    backgroundColor: "red",
   },
 });
