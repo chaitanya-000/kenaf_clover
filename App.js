@@ -4,9 +4,10 @@ import { TouchableOpacity } from "react-native";
 import { width, height } from "./helperFunction";
 import Payment from "./src/screens/Payment";
 import QuickSale from "./src/screens/QuickSale";
+import Refund from "./src/screens/Refund";
 
 export default function App() {
-  return <QuickSale />;
+  return <Refund />;
 }
 
 const styles = StyleSheet.create({
