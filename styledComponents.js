@@ -57,3 +57,24 @@ export const OutlinedGreenButton = styled.TouchableOpacity`
   justify-content: center;
   /* margin-top: ${(props) => props.marginTop}; */
 `;
+
+export const LineDivider = styled.View`
+  width: 90%;
+  height: 14%;
+  align-self: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const HalfPart = styled.View`
+  width: 40%;
+  height: 3%;
+  background-color: rgba(224, 224, 224, 1);
+`;
+
+export const InformativeFooterText = styled.Text`
+  color: rgba(38, 174, 96, 1);
+  font-weight: 700;
+  align-self: center;
+`;
