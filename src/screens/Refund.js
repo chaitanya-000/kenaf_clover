@@ -15,6 +15,9 @@ import {
   PageContent,
   WhiteRoundedContainer,
   OutlinedGreenButton,
+  HalfPart,
+  InformativeFooterText,
+  LineDivider,
 } from "../../styledComponents";
 import { Ionicons } from "@expo/vector-icons";
 import { responsiveFontSize } from "../../helperFunction";
@@ -51,14 +54,17 @@ const Refund = () => {
                     </Text>
                   </OutlinedGreenButton>
                 </View>
-                <View style={styles.lineDivider}>
-                  <View style={styles.halfPart}></View>
+                <LineDivider>
+                  <HalfPart />
                   <Text style={{ color: "rgba(130, 130, 130, 1)" }}>OR</Text>
-                  <View style={styles.halfPart}></View>
-                </View>
-                <Text style={styles.informativeFooterText}>
-                  Issue refund from past transaction
-                </Text>
+
+                  <HalfPart />
+                </LineDivider>
+                <TouchableOpacity>
+                  <InformativeFooterText>
+                    Issue refund from past transaction
+                  </InformativeFooterText>
+                </TouchableOpacity>
               </View>
             </View>
           </PageContent>
