@@ -3,9 +3,10 @@ import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { width, height } from "./helperFunction";
 import Payment from "./src/screens/Payment";
+import QuickSale from "./src/screens/QuickSale";
 
 export default function App() {
-  return <Payment />;
+  return <QuickSale />;
 }
 
 const styles = StyleSheet.create({

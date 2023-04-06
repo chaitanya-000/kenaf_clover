@@ -36,3 +36,24 @@ export const PageContent = styled.View`
   width: 100%;
   height: 90%;
 `;
+export const SolidGreenButton = styled.TouchableOpacity`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  border-radius: 14px;
+  background-color: #26ae60ed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-top: ${(props) => props.marginTop}; */
+`;
+export const OutlinedGreenButton = styled.TouchableOpacity`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  border-radius: 14px;
+  /* background-color: #26ae60ed; */
+  border:1px solid #26ae60ed
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-top: ${(props) => props.marginTop}; */
+`;

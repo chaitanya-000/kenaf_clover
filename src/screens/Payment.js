@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     marginTop: "2%",
   },
   paymentLogsText: {
-    fontSize: responsiveFontSize(4.4),
+    fontSize: responsiveFontSize(4.6),
     color: "#FFBB63",
     fontWeight: "600",
     marginTop: "2%",
