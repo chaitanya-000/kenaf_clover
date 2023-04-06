@@ -9,13 +9,13 @@ export const PageContainer = styled.SafeAreaView`
 `;
 export const Header = styled.View`
   width: 100%;
-  height: 13%;
+  height: 15%;
   padding-horizontal: 6%;
   padding-vertical: 4%;
   justify-content: flex-end;
 `;
 export const BackButton = styled.TouchableOpacity`
-  width: 14%;
+  width: 15%;
   aspect-ratio: 1;
   border-radius: 9px;
   align-items: center;
@@ -29,10 +29,10 @@ export const WhiteRoundedContainer = styled.View`
   height: 90%;
   background-color: white;
   border-radius: 34px;
-  padding: 5%;
+  padding-vertical: 7%;
+  padding-horizontal: 6%;
 `;
 export const PageContent = styled.View`
   width: 100%;
   height: 90%;
-  background-color: red;
 `;

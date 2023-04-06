@@ -1,4 +1,5 @@
 import {
+  Image,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -7,6 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { width, height } from "../../helperFunction";
+import { responsiveFontSize } from "../../helperFunction";
 import { Ionicons } from "@expo/vector-icons";
 import {
   BackButton,
@@ -25,7 +27,30 @@ const Payment = () => {
         </BackButton>
       </Header>
       <WhiteRoundedContainer>
-        <PageContent></PageContent>
+        <PageContent>
+          <View style={styles.nameAndOptionsContainer}>
+            <Text style={styles.screenName}>Payment</Text>
+            <View style={styles.optionsContainer}>
+              <View style={styles.optionLine1Horizontal1}>
+                <TouchableOpacity style={styles.quickSale}>
+                  <Image source={require("../../images/quickSale.png")} />
+                  <Text style={styles.quickSaleText}>Quick Sale</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.refund}>
+                  <Image source={require("../../images/refund.png")} />
+                  <Text style={styles.refundText}>Refund</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.optionLine1Horizontal2}>
+                <TouchableOpacity style={styles.paymentLogs}>
+                  <Image source={require("../../images/paymentLogs.png")} />
+                  <Text style={styles.paymentLogsText}>Payment Logs</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </PageContent>
       </WhiteRoundedContainer>
     </PageContainer>
   );
@@ -34,38 +59,81 @@ const Payment = () => {
 export default Payment;
 
 const styles = StyleSheet.create({
-  pageContainer: {
-    width: width,
-    height: height,
-    backgroundColor: "#121F27",
-  },
-  header: {
+  nameAndOptionsContainer: {
     width: "100%",
-    height: "13%",
-    paddingHorizontal: "6%",
-    paddingVertical: "4%",
-    justifyContent: "flex-end",
+    height: "80%",
   },
-  whiteRoundedContainer: {
+  screenName: {
+    fontSize: responsiveFontSize(8),
+    fontWeight: 700,
+    marginBottom: "5%",
+  },
+  optionsContainer: {
     width: "100%",
-    height: "90%",
-    backgroundColor: "white",
-    borderRadius: 34,
-    padding: "5%",
+    flex: 1,
+    // borderWidth: 1,
+    gap: 4,
   },
-  PageContent: {
+  optionLine1Horizontal1: {
     width: "100%",
-    height: "90%",
-    backgroundColor: "red",
+    height: "40%",
+    justifyContent: "space-around",
+    alignItems: "center",
+    flexDirection: "row",
   },
-  backButton: {
-    width: "14%",
-    aspectRatio: 1,
-    borderRadius: 9,
+  optionLine1Horizontal2: {
+    width: "100%",
+    height: "40%",
+    alignItems: "center",
+    flexDirection: "row",
+    marginLeft: "6%",
+  },
+  quickSale: {
+    width: "40%",
+    height: "94%",
+    borderRadius: 15,
+    borderWidth: 0.4,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#DEE8EF1A",
-    borderColor: "#FFFFFF",
-    borderWidth: 0.3,
+    borderColor: "#F49F6929",
+    backgroundColor: "#F49F6929",
+  },
+  quickSaleText: {
+    fontSize: responsiveFontSize(5),
+    color: "#F49F69",
+    fontWeight: "600",
+    marginTop: "2%",
+  },
+  refundText: {
+    fontSize: responsiveFontSize(5),
+    color: "#389BA3",
+    fontWeight: "600",
+    marginTop: "2%",
+  },
+  paymentLogsText: {
+    fontSize: responsiveFontSize(4.4),
+    color: "#FFBB63",
+    fontWeight: "600",
+    marginTop: "2%",
+  },
+  refund: {
+    width: "40%",
+    height: "94%",
+    borderRadius: 15,
+    borderWidth: 0.4,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#26AE6029",
+    borderColor: "#26AE6029",
+  },
+  paymentLogs: {
+    width: "40%",
+    height: "94%",
+    borderRadius: 15,
+    borderWidth: 0.4,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FFBB6329",
+    borderColor: "#FFBB6329",
   },
 });
