@@ -6,9 +6,10 @@ import Payment from "./src/screens/Payment";
 import QuickSale from "./src/screens/QuickSale";
 import Refund from "./src/screens/Refund";
 import Dashboard from "./src/screens/Dashboard";
+import PaymentLogs from "./src/screens/PaymentLogs";
 
 export default function App() {
-  return <Dashboard />;
+  return <PaymentLogs />;
 }
 
 const styles = StyleSheet.create({
