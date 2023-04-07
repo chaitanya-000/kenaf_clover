@@ -87,6 +87,12 @@ export const InformativeFooterText = styled.Text`
   align-self: center;
 `;
 
+export const ScreenName = styled.Text`
+  font-size: 25px;
+  font-weight: 700;
+  /* margin-bottom: 5%; */
+`;
+
 ///Register login update
 
 export const OptionsButton = styled.TouchableOpacity`
@@ -117,9 +123,46 @@ export const HeaderTwoButtons = styled.View`
 export const ScrollViewContainer = styled.KeyboardAvoidingView`
   width: 100%;
   height: 70%;
-  background-color: red;
+  /* border: 1px solid black; */
+  /* background-color: red; */
 `;
 
 export const StyledScrollView = styled.ScrollView`
   width: 100%;
+`;
+
+export const InputContainer = styled.View`
+  width: 100%;
+  height: 75px;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 5%;
+  /* border: 1px; */
+`;
+export const SplitContainer = styled.View`
+  width: 46%;
+  height: 100%;
+  justify-content: space-between;
+`;
+export const Label = styled.Text`
+  font-size: 13px;
+  color: rgba(130, 130, 130, 1);
+  font-weight: 600;
+  text-transform: uppercase;
+`;
+export const TextInput_Styled = styled.TextInput`
+  width: 100%;
+  height: 65%;
+  background-color: #f6f8fa;
+  border-radius: 10px;
+  border-color: #dee8ef;
+  border-width: 1px;
+  padding: 10px;
+  font-size: 15px;
+  color: rgba(18, 31, 39, 1);
+`;
+export const TextInputContainer = styled.View`
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
 `;

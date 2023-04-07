@@ -22,14 +22,24 @@ import {
   HeaderTwoButtons,
   StyledScrollView,
   ScrollViewContainer,
+  ScreenName,
+  InputContainer,
+  SplitContainer,
+  Label,
+  TextInput_Styled,
 } from "../../styledComponents";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { height, responsiveFontSize, width } from "../../helperFunction";
+import FirstNameLastName from "../organisms/FirstNameLastName";
+import OrgName from "../organisms/OrgName";
 
 const Register = () => {
   return (
-    <KeyboardAvoidingView style={{ width: width, height: height }}>
+    <KeyboardAvoidingView
+      style={{ width: width, height: height }}
+      behavior="height"
+    >
       <View style={{ width: width, height: "100%" }}>
         <HeaderTwoButtons
           style={{
@@ -69,39 +79,9 @@ const Register = () => {
             <StyledScrollView
               contentContainerStyle={styles.scrollViewContentContainer}
             >
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
-              <Text>dhdkjs</Text>
+              <ScreenName style={styles.screenName}>Register</ScreenName>
+              <FirstNameLastName />
+              <OrgName />
             </StyledScrollView>
           </ScrollViewContainer>
           <SolidGreenButton
@@ -122,5 +102,10 @@ export default Register;
 const styles = StyleSheet.create({
   scrollViewContentContainer: {
     paddingBottom: "7%",
+  },
+  screenName: {
+    fontSize: 25,
+    fontWeight: 700,
+    marginBottom: "5%",
   },
 });
