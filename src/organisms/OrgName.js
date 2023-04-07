@@ -13,7 +13,7 @@ const OrgName = () => {
   return (
     <InputContainer>
       <TextInputContainer>
-        <Label>FIRST NAME</Label>
+        <Label>Organisation Name</Label>
         <TextInput_Styled onChange={(value) => console.log(value)} />
       </TextInputContainer>
     </InputContainer>

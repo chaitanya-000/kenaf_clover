@@ -9,7 +9,7 @@ import {
   View,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import {
   BackButton,
   SolidGreenButton,
@@ -42,8 +42,8 @@ import City from "../organisms/City";
 import Country from "../organisms/Country";
 import EirCode from "../organisms/EirCode";
 
-const Register = () => {
-  const [email, setEmail] = useState("sample text");
+const Login = () => {
+  console.log("qkdnwqkl");
   return (
     <KeyboardAvoidingView
       style={{ width: width, height: height }}
@@ -88,20 +88,18 @@ const Register = () => {
             <StyledScrollView
               contentContainerStyle={styles.scrollViewContentContainer}
             >
-              <ScreenName style={styles.screenName}>Register</ScreenName>
-              <FirstNameLastName />
-              <OrgName />
-              <EmailAddress email={email} setEmail={setEmail} />
+              <ScreenName style={styles.screenName}>Login</ScreenName>
+              <InputContainer>
+                <TextInputContainer>
+                  <Label>{email}</Label>
+                  <TextInput_Styled onChangeText={(value) => setEmail(value)} />
+                </TextInputContainer>
+              </InputContainer>
               <Password />
               <ReenterPassword />
-              <AddressLine1 />
-              <AddressLine2 />
-              <City />
-              <Country />
-              <EirCode />
               <SolidGreenButton
                 width={"85%"}
-                height={"5%"}
+                height={"13%"}
                 style={{ alignSelf: "center" }}
               >
                 <Text style={{ color: "white", fontWeight: "700" }}>
@@ -116,7 +114,7 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
 
 const styles = StyleSheet.create({
   scrollViewContentContainer: {

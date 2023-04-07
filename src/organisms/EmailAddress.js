@@ -9,12 +9,12 @@ import {
   TextInputContainer,
 } from "../../styledComponents";
 
-const EmailAddress = () => {
+const EmailAddress = ({ email, setEmail }) => {
   return (
     <InputContainer>
       <TextInputContainer>
-        <Label>Email Address</Label>
-        <TextInput_Styled onChange={(value) => console.log(value)} />
+        <Label>{email}</Label>
+        <TextInput_Styled onChangeText={(value) => setEmail(value)} />
       </TextInputContainer>
     </InputContainer>
   );

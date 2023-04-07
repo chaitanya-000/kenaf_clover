@@ -42,7 +42,7 @@ export const SolidGreenButton = styled.TouchableOpacity`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   border-radius: 14px;
-  background-color: #26ae60ed;
+  background-color: rgba(38, 174, 96, 1);
   display: flex;
   align-items: center;
   justify-content: center;

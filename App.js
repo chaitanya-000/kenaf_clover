@@ -10,6 +10,7 @@ import PaymentLogs from "./src/screens/PaymentLogs";
 import PaymentDetails_Receipt from "./src/screens/PaymentDetails_Receipt";
 import PaymentDetails_Refund from "./src/screens/PaymentDetails_Refund";
 import Register from "./src/screens/Register";
+import Login from "./src/screens/Login";
 
 export default function App() {
   return <Register />;
