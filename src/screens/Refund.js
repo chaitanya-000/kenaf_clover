@@ -41,6 +41,7 @@ const Refund = () => {
                   <TextInput
                     style={styles.textInput}
                     keyboardType="number-pad"
+                    placeholder="-"
                   />
                 </View>
                 <View style={styles.buttonsContainer}>

@@ -9,9 +9,10 @@ import Dashboard from "./src/screens/Dashboard";
 import PaymentLogs from "./src/screens/PaymentLogs";
 import PaymentDetails_Receipt from "./src/screens/PaymentDetails_Receipt";
 import PaymentDetails_Refund from "./src/screens/PaymentDetails_Refund";
+import Register from "./src/screens/Register";
 
 export default function App() {
-  return <PaymentDetails_Refund />;
+  return <Register />;
 }
 
 const styles = StyleSheet.create({});

@@ -12,7 +12,9 @@ export const Header = styled.View`
   height: 15%;
   padding-horizontal: 6%;
   padding-vertical: 4%;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-direction: row;
 `;
 export const BackButton = styled.TouchableOpacity`
   width: 15%;
@@ -83,4 +85,15 @@ export const InformativeFooterText = styled.Text`
   color: rgba(38, 174, 96, 1);
   font-weight: 700;
   align-self: center;
+`;
+
+export const OptionsButton = styled.TouchableOpacity`
+  width: 15%;
+  aspect-ratio: 1;
+  border-radius: 9px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(222, 232, 239, 0.1);
+  border-width: 1px;
 `;
