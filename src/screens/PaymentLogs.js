@@ -53,7 +53,7 @@ const PaymentLogs = () => {
                 <Text style={{ fontSize: responsiveFontSize(4) }}>
                   Debit Card
                 </Text>
-                <Text style={{ fontWeight: "650" }}>$1:00</Text>
+                <Text style={{ fontWeight: "600" }}>$1:00</Text>
               </View>
             </TouchableOpacity>
           </ScrollView>

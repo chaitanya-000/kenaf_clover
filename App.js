@@ -7,22 +7,10 @@ import QuickSale from "./src/screens/QuickSale";
 import Refund from "./src/screens/Refund";
 import Dashboard from "./src/screens/Dashboard";
 import PaymentLogs from "./src/screens/PaymentLogs";
+import PaymentDetails_Receipt from "./src/screens/PaymentDetails_Receipt";
 
 export default function App() {
-  return <PaymentLogs />;
+  return <PaymentDetails_Receipt />;
 }
 
-const styles = StyleSheet.create({
-  PageContainer: {
-    width: width,
-    height: height,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "blue",
-  },
-  box: {
-    width: "20%",
-    height: "20%",
-    backgroundColor: "red",
-  },
-});
+const styles = StyleSheet.create({});

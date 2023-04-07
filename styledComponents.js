@@ -44,7 +44,10 @@ export const SolidGreenButton = styled.TouchableOpacity`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* margin-top: ${(props) => props.marginTop}; */
+`;
+export const ButtonText = styled.Text`
+  color: rgba(255, 255, 255, 1);
+  font-weight: 700;
 `;
 export const OutlinedGreenButton = styled.TouchableOpacity`
   width: ${(props) => props.width};
@@ -55,7 +58,6 @@ export const OutlinedGreenButton = styled.TouchableOpacity`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* margin-top: ${(props) => props.marginTop}; */
 `;
 
 export const LineDivider = styled.View`
@@ -71,6 +73,10 @@ export const HalfPart = styled.View`
   width: 40%;
   height: 3%;
   background-color: rgba(224, 224, 224, 1);
+`;
+export const LineDividerText_OR = styled.Text`
+  color: rgba(130, 130, 130, 1);
+  font-weight: 600;
 `;
 
 export const InformativeFooterText = styled.Text`
