@@ -33,8 +33,17 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { height, responsiveFontSize, width } from "../../helperFunction";
 import FirstNameLastName from "../organisms/FirstNameLastName";
 import OrgName from "../organisms/OrgName";
+import EmailAddress from "../organisms/EmailAddress";
+import Password from "../organisms/Password";
+import ReenterPassword from "../organisms/ReenterPassword";
+import AddressLine1 from "../organisms/AddressLine1";
+import AddressLine2 from "../organisms/AddressLine2";
+import City from "../organisms/City";
+import Country from "../organisms/Country";
+import EirCode from "../organisms/EirCode";
 
 const Register = () => {
+  console.log("qkdnwqkl");
   return (
     <KeyboardAvoidingView
       style={{ width: width, height: height }}
@@ -82,15 +91,25 @@ const Register = () => {
               <ScreenName style={styles.screenName}>Register</ScreenName>
               <FirstNameLastName />
               <OrgName />
+              <EmailAddress />
+              <Password />
+              <ReenterPassword />
+              <AddressLine1 />
+              <AddressLine2 />
+              <City />
+              <Country />
+              <EirCode />
+              <SolidGreenButton
+                width={"85%"}
+                height={"5%"}
+                style={{ alignSelf: "center" }}
+              >
+                <Text style={{ color: "white", fontWeight: "700" }}>
+                  Sign Up
+                </Text>
+              </SolidGreenButton>
             </StyledScrollView>
           </ScrollViewContainer>
-          <SolidGreenButton
-            width={"85%"}
-            height={"8%"}
-            style={{ alignSelf: "center" }}
-          >
-            <Text style={{ color: "white", fontWeight: "700" }}>Sign Up</Text>
-          </SolidGreenButton>
         </WhiteRoundedContainer>
       </View>
     </KeyboardAvoidingView>
@@ -101,7 +120,7 @@ export default Register;
 
 const styles = StyleSheet.create({
   scrollViewContentContainer: {
-    paddingBottom: "7%",
+    paddingBottom: "17%",
   },
   screenName: {
     fontSize: 25,

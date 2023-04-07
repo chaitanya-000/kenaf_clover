@@ -129,6 +129,7 @@ export const ScrollViewContainer = styled.KeyboardAvoidingView`
 
 export const StyledScrollView = styled.ScrollView`
   width: 100%;
+  padding-bottom: 20%;
 `;
 
 export const InputContainer = styled.View`
