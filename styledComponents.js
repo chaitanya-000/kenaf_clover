@@ -87,6 +87,8 @@ export const InformativeFooterText = styled.Text`
   align-self: center;
 `;
 
+///Register login update
+
 export const OptionsButton = styled.TouchableOpacity`
   width: 15%;
   aspect-ratio: 1;
@@ -96,4 +98,28 @@ export const OptionsButton = styled.TouchableOpacity`
   background-color: rgba(255, 255, 255, 0.05);
   border-color: rgba(222, 232, 239, 0.1);
   border-width: 1px;
+`;
+
+export const HeaderTwoButtons = styled.View`
+  width: 100%;
+  height: 15%;
+  padding-horizontal: 6%;
+  padding-vertical: 4%;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-direction: row;
+  position: absolute;
+  z-index: 9000;
+  top: 20,
+  left: 0,
+  align-self: center,
+`;
+export const ScrollViewContainer = styled.KeyboardAvoidingView`
+  width: 100%;
+  height: 70%;
+  background-color: red;
+`;
+
+export const StyledScrollView = styled.ScrollView`
+  width: 100%;
 `;

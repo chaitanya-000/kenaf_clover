@@ -19,6 +19,9 @@ import {
   WhiteRoundedContainer,
   OutlinedGreenButton,
   OptionsButton,
+  HeaderTwoButtons,
+  StyledScrollView,
+  ScrollViewContainer,
 } from "../../styledComponents";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -28,7 +31,7 @@ const Register = () => {
   return (
     <KeyboardAvoidingView style={{ width: width, height: height }}>
       <View style={{ width: width, height: "100%" }}>
-        <Header
+        <HeaderTwoButtons
           style={{
             // borderWidth: 1,
             zIndex: 12,
@@ -48,7 +51,7 @@ const Register = () => {
               color="black"
             />
           </OptionsButton>
-        </Header>
+        </HeaderTwoButtons>
         <Image
           source={require("../../images/kenafBackgroundImage.png")}
           style={{
@@ -62,11 +65,8 @@ const Register = () => {
           resizeMode="cover"
         />
         <WhiteRoundedContainer style={{ position: "absolute", top: "25%" }}>
-          <View
-            style={{ width: "100%", height: "65%", backgroundColor: "red" }}
-          >
-            <ScrollView
-              style={styles.scrollView}
+          <ScrollViewContainer>
+            <StyledScrollView
               contentContainerStyle={styles.scrollViewContentContainer}
             >
               <Text>dhdkjs</Text>
@@ -102,8 +102,8 @@ const Register = () => {
               <Text>dhdkjs</Text>
               <Text>dhdkjs</Text>
               <Text>dhdkjs</Text>
-            </ScrollView>
-          </View>
+            </StyledScrollView>
+          </ScrollViewContainer>
           <SolidGreenButton
             width={"85%"}
             height={"8%"}
@@ -120,11 +120,7 @@ const Register = () => {
 export default Register;
 
 const styles = StyleSheet.create({
-  scrollView: {
-    width: "100%",
-    paddingBottom: "12%",
-  },
   scrollViewContentContainer: {
-    paddingBottom: "10%",
+    paddingBottom: "7%",
   },
 });
