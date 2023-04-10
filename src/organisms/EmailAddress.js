@@ -13,8 +13,8 @@ const EmailAddress = ({ email, setEmail }) => {
   return (
     <InputContainer>
       <TextInputContainer>
-        <Label>{email}</Label>
-        <TextInput_Styled onChangeText={(value) => setEmail(value)} />
+        <Label>Email Address</Label>
+        <TextInput_Styled />
       </TextInputContainer>
     </InputContainer>
   );

@@ -9,7 +9,7 @@ import {
   View,
   ScrollView,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import {
   BackButton,
   SolidGreenButton,
@@ -27,7 +27,6 @@ import {
   SplitContainer,
   Label,
   TextInput_Styled,
-  TextInputContainer,
 } from "../../styledComponents";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -43,61 +42,54 @@ import City from "../organisms/City";
 import Country from "../organisms/Country";
 import EirCode from "../organisms/EirCode";
 
-const Login = () => {
+const ProfileUpdate = () => {
+  const [email, setEmail] = useState("sample text");
   return (
     <KeyboardAvoidingView
       style={{ width: width, height: height }}
       behavior="height"
     >
       <View style={{ width: width, height: "100%" }}>
-        <HeaderTwoButtons
-          style={{
-            // borderWidth: 1,
-            zIndex: 12,
-            position: "absolute",
-            top: 20,
-            left: 0,
-            alignSelf: "center",
-          }}
-        >
+        <HeaderTwoButtons>
           <BackButton>
             <Ionicons name="md-arrow-back" size={25} color="white" />
           </BackButton>
-          <OptionsButton>
-            <MaterialCommunityIcons
-              name="dots-vertical"
-              size={24}
-              color="black"
-            />
-          </OptionsButton>
+          <TextInput
+            style={{
+              position: "absolute",
+              top: "65%",
+              left: "50%",
+              fontSize: 19,
+              color: "white",
+              fontWeight: "700",
+            }}
+          >
+            Profile
+          </TextInput>
         </HeaderTwoButtons>
-        <Image
-          source={require("../../images/kenafBackgroundImage.png")}
-          style={{
-            width: "100%",
-            height: "70%",
-            position: "absolute",
-            top: "-10%",
-            left: 0,
-            alignSelf: "center",
-          }}
-          resizeMode="cover"
-        />
-        <WhiteRoundedContainer style={{ position: "absolute", top: "25%" }}>
+        <View style={styles.HeaderBlueBackground} />
+        <WhiteRoundedContainer style={{ position: "absolute", top: "20%" }}>
           <ScrollViewContainer>
             <StyledScrollView
               contentContainerStyle={styles.scrollViewContentContainer}
             >
-              <ScreenName style={styles.screenName}>Login</ScreenName>
-              <EmailAddress />
+              <ScreenName style={styles.screenName}>Profile Update</ScreenName>
+              <FirstNameLastName />
+              <OrgName />
+              <EmailAddress email={email} setEmail={setEmail} />
               <Password />
               <ReenterPassword />
+              <AddressLine1 />
+              <AddressLine2 />
+              <City />
+              <Country />
+              <EirCode />
               <SolidGreenButton
                 width={"85%"}
-                height={"13%"}
+                height={"5%"}
                 style={{ alignSelf: "center" }}
               >
-                <Text style={{ color: "white", fontWeight: "700" }}>Login</Text>
+                <Text style={{ color: "white", fontWeight: "700" }}>Save</Text>
               </SolidGreenButton>
             </StyledScrollView>
           </ScrollViewContainer>
@@ -107,7 +99,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ProfileUpdate;
 
 const styles = StyleSheet.create({
   scrollViewContentContainer: {
@@ -117,5 +109,14 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 700,
     marginBottom: "5%",
+  },
+  HeaderBlueBackground: {
+    width: "100%",
+    height: "70%",
+    position: "absolute",
+    top: "-10%",
+    left: 0,
+    alignSelf: "center",
+    backgroundColor: "#121F27",
   },
 });

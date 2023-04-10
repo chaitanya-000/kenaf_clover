@@ -43,7 +43,8 @@ import City from "../organisms/City";
 import Country from "../organisms/Country";
 import EirCode from "../organisms/EirCode";
 
-const Login = () => {
+const CompanyDetails = () => {
+  console.log("qkdnwqkl");
   return (
     <KeyboardAvoidingView
       style={{ width: width, height: height }}
@@ -88,8 +89,13 @@ const Login = () => {
             <StyledScrollView
               contentContainerStyle={styles.scrollViewContentContainer}
             >
-              <ScreenName style={styles.screenName}>Login</ScreenName>
-              <EmailAddress />
+              <ScreenName style={styles.screenName}>CompanyDetails</ScreenName>
+              <InputContainer>
+                <TextInputContainer>
+                  <Label>Email Address</Label>
+                  <TextInput_Styled onChangeText={(value) => setEmail(value)} />
+                </TextInputContainer>
+              </InputContainer>
               <Password />
               <ReenterPassword />
               <SolidGreenButton
@@ -97,7 +103,9 @@ const Login = () => {
                 height={"13%"}
                 style={{ alignSelf: "center" }}
               >
-                <Text style={{ color: "white", fontWeight: "700" }}>Login</Text>
+                <Text style={{ color: "white", fontWeight: "700" }}>
+                  Sign Up
+                </Text>
               </SolidGreenButton>
             </StyledScrollView>
           </ScrollViewContainer>
@@ -107,7 +115,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default CompanyDetails;
 
 const styles = StyleSheet.create({
   scrollViewContentContainer: {

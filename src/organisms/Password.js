@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import React from "react";
 import {
   FirstNameLastNameContainer,
@@ -14,7 +14,7 @@ const Password = () => {
     <InputContainer>
       <TextInputContainer>
         <Label>Password</Label>
-        <TextInput_Styled onChange={(value) => console.log(value)} />
+        <TextInput_Styled textContentType="password" secureTextEntry />
       </TextInputContainer>
     </InputContainer>
   );

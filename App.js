@@ -11,9 +11,11 @@ import PaymentDetails_Receipt from "./src/screens/PaymentDetails_Receipt";
 import PaymentDetails_Refund from "./src/screens/PaymentDetails_Refund";
 import Register from "./src/screens/Register";
 import Login from "./src/screens/Login";
+import CompanyDetails from "./src/screens/CompanyDetails";
+import ProfileUpdate from "./src/screens/ProfileUpdate";
 
 export default function App() {
-  return <Register />;
+  return <ProfileUpdate />;
 }
 
 const styles = StyleSheet.create({});

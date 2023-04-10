@@ -116,13 +116,13 @@ export const HeaderTwoButtons = styled.View`
   flex-direction: row;
   position: absolute;
   z-index: 9000;
-  top: 20,
-  left: 0,
-  align-self: center,
+  top: 20px;
+  left: 0px;
+  align-self: center;
 `;
 export const ScrollViewContainer = styled.KeyboardAvoidingView`
   width: 100%;
-  height: 70%;
+  height: 85%;
   /* border: 1px solid black; */
   /* background-color: red; */
 `;

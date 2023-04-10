@@ -14,7 +14,7 @@ const ReenterPassword = () => {
     <InputContainer>
       <TextInputContainer>
         <Label>Re-Enter Password</Label>
-        <TextInput_Styled onChange={(value) => console.log(value)} />
+        <TextInput_Styled textContentType="password" secureTextEntry />
       </TextInputContainer>
     </InputContainer>
   );
