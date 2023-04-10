@@ -13,9 +13,11 @@ import Register from "./src/screens/Register";
 import Login from "./src/screens/Login";
 import CompanyDetails from "./src/screens/CompanyDetails";
 import ProfileUpdate from "./src/screens/ProfileUpdate";
+import Analytics from "./src/screens/Analytics";
+import Loyalty from "./src/screens/Loyalty";
 
 export default function App() {
-  return <ProfileUpdate />;
+  return <Loyalty />;
 }
 
 const styles = StyleSheet.create({});
