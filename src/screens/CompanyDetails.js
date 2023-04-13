@@ -44,7 +44,6 @@ import Country from "../organisms/Country";
 import EirCode from "../organisms/EirCode";
 
 const CompanyDetails = () => {
-  console.log("qkdnwqkl");
   return (
     <KeyboardAvoidingView
       style={{ width: width, height: height }}

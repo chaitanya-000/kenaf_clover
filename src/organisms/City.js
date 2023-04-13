@@ -14,7 +14,7 @@ const City = () => {
     <InputContainer>
       <TextInputContainer>
         <Label>City</Label>
-        <TextInput_Styled onChangeText={(value) => console.log(value)} />
+        <TextInput_Styled />
       </TextInputContainer>
     </InputContainer>
   );

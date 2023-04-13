@@ -12,23 +12,24 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="DrawerNavigation" component={DrawerNavigation} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen
-          name="PaymentDetails_Refund"
-          component={PaymentDetails_Refund}
-        />
-        <Stack.Screen
-          name="PaymentDetails_Receipt"
-          component={PaymentDetails_Receipt}
-        />
-        <Stack.Screen name="PaymentLogs" component={PaymentLogs} />
-        <Stack.Screen name="QuickSale" component={QuickSale} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Stack.Navigator screenOptions={{ headerShown: false }}>
+    //     <Stack.Screen name="DrawerNavigation" component={DrawerNavigation} />
+    //     <Stack.Screen name="Login" component={Login} />
+    //     <Stack.Screen name="Register" component={Register} />
+    //     <Stack.Screen
+    //       name="PaymentDetails_Refund"
+    //       component={PaymentDetails_Refund}
+    //     />
+    //     <Stack.Screen
+    //       name="PaymentDetails_Receipt"
+    //       component={PaymentDetails_Receipt}
+    //     />
+    //     <Stack.Screen name="PaymentLogs" component={PaymentLogs} />
+    //     <Stack.Screen name="QuickSale" component={QuickSale} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+    <Login />
   );
 }
 

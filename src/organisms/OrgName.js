@@ -14,7 +14,7 @@ const OrgName = () => {
     <InputContainer>
       <TextInputContainer>
         <Label>Organisation Name</Label>
-        <TextInput_Styled onChange={(value) => console.log(value)} />
+        <TextInput_Styled />
       </TextInputContainer>
     </InputContainer>
   );

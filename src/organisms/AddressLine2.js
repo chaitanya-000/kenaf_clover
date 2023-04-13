@@ -14,7 +14,7 @@ const AddressLine2 = () => {
     <InputContainer>
       <TextInputContainer>
         <Label>Address Line 2</Label>
-        <TextInput_Styled onChange={(value) => console.log(value)} />
+        <TextInput_Styled />
       </TextInputContainer>
     </InputContainer>
   );

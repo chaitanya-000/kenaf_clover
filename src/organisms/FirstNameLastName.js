@@ -12,7 +12,7 @@ const FirstNameLastName = () => {
     <InputContainer>
       <SplitContainer>
         <Label>FIRST NAME</Label>
-        <TextInput_Styled onChange={(value) => console.log(value)} />
+        <TextInput_Styled />
       </SplitContainer>
       <SplitContainer>
         <Label>Last Name</Label>

@@ -14,7 +14,7 @@ const Country = () => {
     <InputContainer>
       <TextInputContainer>
         <Label>Country</Label>
-        <TextInput_Styled onChange={(value) => console.log("wwdw")} />
+        <TextInput_Styled />
       </TextInputContainer>
     </InputContainer>
   );

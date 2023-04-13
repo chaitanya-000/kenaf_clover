@@ -14,7 +14,7 @@ const EirCode = () => {
     <InputContainer>
       <TextInputContainer>
         <Label>Eircode</Label>
-        <TextInput_Styled onChangeText={(value) => console.log(value)} />
+        <TextInput_Styled />
       </TextInputContainer>
     </InputContainer>
   );
