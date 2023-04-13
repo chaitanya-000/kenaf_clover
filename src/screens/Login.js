@@ -1,49 +1,46 @@
 import {
   Image,
   KeyboardAvoidingView,
-  SafeAreaView,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableOpacity,
   View,
-  ScrollView,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import {
   BackButton,
   SolidGreenButton,
-  Header,
-  PageContainer,
-  PageContent,
   WhiteRoundedContainer,
-  OutlinedGreenButton,
   OptionsButton,
   HeaderTwoButtons,
   StyledScrollView,
   ScrollViewContainer,
   ScreenName,
-  InputContainer,
-  SplitContainer,
-  Label,
-  TextInput_Styled,
   TextInputContainer,
+  TextInput_Styled,
+  InputContainer,
+  Label,
 } from "../../styledComponents";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { height, responsiveFontSize, width } from "../../helperFunction";
-import FirstNameLastName from "../organisms/FirstNameLastName";
-import OrgName from "../organisms/OrgName";
-import EmailAddress from "../organisms/EmailAddress";
-import Password from "../organisms/Password";
-import ReenterPassword from "../organisms/ReenterPassword";
-import AddressLine1 from "../organisms/AddressLine1";
-import AddressLine2 from "../organisms/AddressLine2";
-import City from "../organisms/City";
-import Country from "../organisms/Country";
-import EirCode from "../organisms/EirCode";
+import { BASE_URL, height, width } from "../../helperFunction";
+import axios from "axios";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const sendLoginData = () => {
+    axios
+      .post(`https://kenaf.ie/cloverAppLoginCheckUsers`, {
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => alert(error.response.data.message[0]));
+  };
+
   return (
     <KeyboardAvoidingView
       style={{ width: width, height: height }}
@@ -89,13 +86,37 @@ const Login = () => {
               contentContainerStyle={styles.scrollViewContentContainer}
             >
               <ScreenName style={styles.screenName}>Login</ScreenName>
-              <EmailAddress />
-              <Password />
-              <ReenterPassword />
+              <InputContainer>
+                <TextInputContainer>
+                  <Label>Email Address</Label>
+                  <TextInput_Styled onChangeText={(value) => setEmail(value)} />
+                </TextInputContainer>
+              </InputContainer>
+              <InputContainer>
+                <TextInputContainer>
+                  <Label>Password</Label>
+                  <TextInput_Styled
+                    textContentType="password"
+                    secureTextEntry
+                    onChangeText={(value) => setPassword(value)}
+                  />
+                </TextInputContainer>
+              </InputContainer>
+              <InputContainer>
+                <TextInputContainer>
+                  <Label>Re-Enter Password</Label>
+                  <TextInput_Styled
+                    textContentType="password"
+                    secureTextEntry
+                    onChangeText={(value) => console.log(value)}
+                  />
+                </TextInputContainer>
+              </InputContainer>
               <SolidGreenButton
                 width={"85%"}
                 height={"13%"}
                 style={{ alignSelf: "center" }}
+                onPress={sendLoginData}
               >
                 <Text style={{ color: "white", fontWeight: "700" }}>Login</Text>
               </SolidGreenButton>
