@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import {
@@ -28,38 +29,14 @@ import axios from "axios";
 import EmailAddress from "../organisms/EmailAddress";
 import Password from "../organisms/Password";
 import ReenterPassword from "../organisms/ReenterPassword";
+import LoadingSpinner from "../organisms/LoadingSpinner";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [re_enteredPassword, setRe_enteredPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // const sendLoginData = () => {
-  //   if (email && password && re_enteredPassword) {
-  //     if (password.length >= 6) {
-  //       if (password === re_enteredPassword) {
-  //         axios
-  //           .post(`https://kenaf.ie/cloverAppLoginCheckUsers`, {
-  //             email: email,
-  //             password: password,
-  //           })
-  //           .then((response) => {
-  //             console.log(response);
-  //           })
-  //           .catch((error) => {
-  //             console.log(error);
-  //             alert(error.response.data.message[0]);
-  //           });
-  //       } else {
-  //         Alert.alert("Passwords do not match");
-  //       }
-  //     } else {
-  //       Alert.alert("Password should be at least 6 characters long");
-  //     }
-  //   } else {
-  //     Alert.alert("All fields are necessary. Please enter the credentials");
-  //   }
-  // };
   const sendLoginData = async () => {
     try {
       if (!email || !password || !re_enteredPassword) {
@@ -76,6 +53,7 @@ const Login = () => {
         throw new Error("Passwords do not match");
       }
 
+      setLoading(true);
       const response = await axios
         .post("https://kenaf.ie/cloverAppLoginCheckUsers", {
           email,
@@ -88,8 +66,10 @@ const Login = () => {
           Alert.alert(error.response.data.message[0]);
           console.log(error);
         });
+      setLoading(false);
     } catch (error) {
       Alert.alert(error.message);
+      setLoading(false);
     }
   };
 
@@ -98,6 +78,8 @@ const Login = () => {
       style={{ width: width, height: height }}
       behavior="height"
     >
+      {loading && <LoadingSpinner loading={loading} setLoading={setLoading} />}
+
       <View style={{ width: width, height: "100%" }}>
         <HeaderTwoButtons
           style={{
@@ -172,3 +154,30 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
   },
 });
+
+// const sendLoginData = () => {
+//   if (email && password && re_enteredPassword) {
+//     if (password.length >= 6) {
+//       if (password === re_enteredPassword) {
+//         axios
+//           .post(`https://kenaf.ie/cloverAppLoginCheckUsers`, {
+//             email: email,
+//             password: password,
+//           })
+//           .then((response) => {
+//             console.log(response);
+//           })
+//           .catch((error) => {
+//             console.log(error);
+//             alert(error.response.data.message[0]);
+//           });
+//       } else {
+//         Alert.alert("Passwords do not match");
+//       }
+//     } else {
+//       Alert.alert("Password should be at least 6 characters long");
+//     }
+//   } else {
+//     Alert.alert("All fields are necessary. Please enter the credentials");
+//   }
+// };
