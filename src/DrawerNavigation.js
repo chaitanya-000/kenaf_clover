@@ -11,6 +11,8 @@ import {
 import Settings from "./screens/Settings";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { Entypo } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 const DrawerNavigation = (props) => {
   const Drawer = createDrawerNavigator();
@@ -51,12 +53,15 @@ const DrawerNavigation = (props) => {
         component={TabsNavigation}
         options={{
           drawerIcon: ({ focused, size }) => (
-            <Icon
-              name={focused ? "home" : "home-outline"}
-              size={size}
-              color={focused ? "#007AFF" : "white"}
+            <Feather
+              name="home"
+              size={24}
+              color={focused ? "green" : "white"}
             />
           ),
+          drawerLabelStyle: {
+            color: "white",
+          },
         }}
       />
       <Drawer.Screen
@@ -64,12 +69,11 @@ const DrawerNavigation = (props) => {
         component={CompanyDetails}
         options={{
           drawerIcon: ({ focused, size }) => (
-            <MaterialCommunityIcons
-              name={focused ? "link-variant" : "link-variant-outline"}
-              size={size}
-              color={focused ? "#007AFF" : "white"}
-            />
+            <Entypo name="link" size={24} color={focused ? "green" : "white"} />
           ),
+          drawerLabelStyle: {
+            color: "white",
+          },
         }}
       />
       <Drawer.Screen
@@ -80,9 +84,12 @@ const DrawerNavigation = (props) => {
             <Icon
               name={focused ? "settings" : "settings-outline"}
               size={size}
-              color={focused ? "#007AFF" : "white"}
+              color={focused ? "green" : "white"}
             />
           ),
+          drawerLabelStyle: {
+            color: "white",
+          },
         }}
       />
     </Drawer.Navigator>
@@ -106,6 +113,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "white",
+    marginLeft: 20,
   },
 });
 
