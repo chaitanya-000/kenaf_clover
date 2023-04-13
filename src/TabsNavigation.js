@@ -5,16 +5,94 @@ import Dashboard from "./screens/Dashboard";
 import Payment from "./screens/Payment";
 import Loyalty from "./screens/Loyalty";
 import Analytics from "./screens/Analytics";
+import CompanyDetails from "./screens/CompanyDetails";
+import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const TabsNavigation = () => {
   const Tab = createBottomTabNavigator();
 
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Dashboard" component={Dashboard} />
-      <Tab.Screen name="Payment" component={Payment} />
-      <Tab.Screen name="Loyalty" component={Loyalty} />
-      <Tab.Screen name="Analytics" component={Analytics} />
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        activeTintColor: "red",
+        inactiveTintColor: "gray",
+        tabBarStyle: {
+          height: 65,
+          paddingVertical: 3,
+          paddingBottom: 15,
+          borderTopLeftRadius: 12,
+          borderTopRightRadius: 12,
+        },
+        tabBarLabelStyle: {
+          fontSize: 11,
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{
+          tabBarActiveTintColor: "rgba(38, 174, 96, 1)",
+          tabBarLabel: "Dashboard",
+          tabBarIcon: ({ color, size, focused }) => (
+            <MaterialIcons
+              name="dashboard"
+              size={23}
+              color={focused ? "rgba(38, 174, 96, 1)" : "gray"}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Payment"
+        component={Payment}
+        options={{
+          tabBarActiveTintColor: "rgba(38, 174, 96, 1)",
+
+          tabBarLabel: "Payment",
+          tabBarIcon: ({ color, size, focused }) => (
+            <MaterialIcons
+              name="payment"
+              size={23}
+              color={focused ? "rgba(38, 174, 96, 1)" : "gray"}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Loyalty"
+        component={Loyalty}
+        options={{
+          tabBarActiveTintColor: "rgba(38, 174, 96, 1)",
+
+          tabBarLabel: "Loyalty",
+          tabBarIcon: ({ color, size, focused }) => (
+            <MaterialIcons
+              name="loyalty"
+              size={23}
+              color={focused ? "rgba(38, 174, 96, 1)" : "gray"}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Analytics"
+        component={Analytics}
+        options={{
+          tabBarActiveTintColor: "rgba(38, 174, 96, 1)",
+
+          tabBarLabel: "Analytics",
+          tabBarIcon: ({ color, size, focused }) => (
+            <MaterialCommunityIcons
+              name="google-analytics"
+              size={23}
+              color={focused ? "rgba(38, 174, 96, 1)" : "gray"}
+            />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
