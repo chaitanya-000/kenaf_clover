@@ -41,6 +41,9 @@ import AddressLine2 from "../organisms/AddressLine2";
 import City from "../organisms/City";
 import Country from "../organisms/Country";
 import EirCode from "../organisms/EirCode";
+import OrgAddress from "../organisms/OrgAddress";
+import Phone from "../organisms/Phone";
+import StoreNameDropdown from "../organisms/StoreNameDropdown";
 
 const Register = () => {
   const [email, setEmail] = useState("sample text");
@@ -89,19 +92,17 @@ const Register = () => {
               contentContainerStyle={styles.scrollViewContentContainer}
             >
               <ScreenName style={styles.screenName}>Register</ScreenName>
+              <StoreNameDropdown />
               <FirstNameLastName />
               <OrgName />
               <EmailAddress email={email} setEmail={setEmail} />
               <Password />
               <ReenterPassword />
-              <AddressLine1 />
-              <AddressLine2 />
-              <City />
-              <Country />
-              <EirCode />
+              <OrgAddress />
+              <Phone />
               <SolidGreenButton
                 width={"85%"}
-                height={"5%"}
+                height={"6%"}
                 style={{ alignSelf: "center" }}
               >
                 <Text style={{ color: "white", fontWeight: "700" }}>
