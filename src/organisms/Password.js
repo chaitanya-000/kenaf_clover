@@ -9,12 +9,16 @@ import {
   TextInputContainer,
 } from "../../styledComponents";
 
-const Password = () => {
+const Password = ({ password, setPassword }) => {
   return (
     <InputContainer>
       <TextInputContainer>
         <Label>Password</Label>
-        <TextInput_Styled textContentType="password" secureTextEntry />
+        <TextInput_Styled
+          textContentType="password"
+          secureTextEntry
+          onChangeText={(value) => setPassword(value)}
+        />
       </TextInputContainer>
     </InputContainer>
   );

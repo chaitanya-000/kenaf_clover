@@ -1,4 +1,5 @@
 import {
+  Alert,
   Image,
   KeyboardAvoidingView,
   StyleSheet,
@@ -24,21 +25,72 @@ import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BASE_URL, height, width } from "../../helperFunction";
 import axios from "axios";
+import EmailAddress from "../organisms/EmailAddress";
+import Password from "../organisms/Password";
+import ReenterPassword from "../organisms/ReenterPassword";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [re_enteredPassword, setRe_enteredPassword] = useState("");
 
-  const sendLoginData = () => {
-    axios
-      .post(`https://kenaf.ie/cloverAppLoginCheckUsers`, {
-        email: email,
-        password: password,
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => alert(error.response.data.message[0]));
+  // const sendLoginData = () => {
+  //   if (email && password && re_enteredPassword) {
+  //     if (password.length >= 6) {
+  //       if (password === re_enteredPassword) {
+  //         axios
+  //           .post(`https://kenaf.ie/cloverAppLoginCheckUsers`, {
+  //             email: email,
+  //             password: password,
+  //           })
+  //           .then((response) => {
+  //             console.log(response);
+  //           })
+  //           .catch((error) => {
+  //             console.log(error);
+  //             alert(error.response.data.message[0]);
+  //           });
+  //       } else {
+  //         Alert.alert("Passwords do not match");
+  //       }
+  //     } else {
+  //       Alert.alert("Password should be at least 6 characters long");
+  //     }
+  //   } else {
+  //     Alert.alert("All fields are necessary. Please enter the credentials");
+  //   }
+  // };
+  const sendLoginData = async () => {
+    try {
+      if (!email || !password || !re_enteredPassword) {
+        throw new Error(
+          "All fields are necessary. Please enter the credentials"
+        );
+      }
+
+      if (password.length < 6) {
+        throw new Error("Password should be at least 6 characters long");
+      }
+
+      if (password !== re_enteredPassword) {
+        throw new Error("Passwords do not match");
+      }
+
+      const response = await axios
+        .post("https://kenaf.ie/cloverAppLoginCheckUsers", {
+          email,
+          password,
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          Alert.alert(error.response.data.message[0]);
+          console.log(error);
+        });
+    } catch (error) {
+      Alert.alert(error.message);
+    }
   };
 
   return (
@@ -86,32 +138,12 @@ const Login = () => {
               contentContainerStyle={styles.scrollViewContentContainer}
             >
               <ScreenName style={styles.screenName}>Login</ScreenName>
-              <InputContainer>
-                <TextInputContainer>
-                  <Label>Email Address</Label>
-                  <TextInput_Styled onChangeText={(value) => setEmail(value)} />
-                </TextInputContainer>
-              </InputContainer>
-              <InputContainer>
-                <TextInputContainer>
-                  <Label>Password</Label>
-                  <TextInput_Styled
-                    textContentType="password"
-                    secureTextEntry
-                    onChangeText={(value) => setPassword(value)}
-                  />
-                </TextInputContainer>
-              </InputContainer>
-              <InputContainer>
-                <TextInputContainer>
-                  <Label>Re-Enter Password</Label>
-                  <TextInput_Styled
-                    textContentType="password"
-                    secureTextEntry
-                    onChangeText={(value) => console.log(value)}
-                  />
-                </TextInputContainer>
-              </InputContainer>
+              <EmailAddress email={email} setEmail={setEmail} />
+              <Password password={password} setPassword={setPassword} />
+              <ReenterPassword
+                re_enteredPassword={re_enteredPassword}
+                setRe_enteredPassword={setRe_enteredPassword}
+              />
               <SolidGreenButton
                 width={"85%"}
                 height={"13%"}

@@ -14,7 +14,7 @@ const EmailAddress = ({ email, setEmail }) => {
     <InputContainer>
       <TextInputContainer>
         <Label>Email Address</Label>
-        <TextInput_Styled />
+        <TextInput_Styled onChangeText={(value) => setEmail(value)} />
       </TextInputContainer>
     </InputContainer>
   );
