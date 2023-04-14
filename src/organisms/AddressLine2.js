@@ -9,12 +9,16 @@ import {
   TextInputContainer,
 } from "../../styledComponents";
 
-const AddressLine2 = () => {
+const AddressLine2 = ({ setAddress2 }) => {
   return (
     <InputContainer>
       <TextInputContainer>
         <Label>Address Line 2</Label>
-        <TextInput_Styled />
+        <TextInput_Styled
+          onChangeText={(enteredValue) => {
+            setAddress2(enteredValue);
+          }}
+        />
       </TextInputContainer>
     </InputContainer>
   );

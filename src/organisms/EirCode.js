@@ -9,12 +9,16 @@ import {
   TextInputContainer,
 } from "../../styledComponents";
 
-const EirCode = () => {
+const EirCode = ({ setEircode }) => {
   return (
     <InputContainer>
       <TextInputContainer>
         <Label>Eircode</Label>
-        <TextInput_Styled />
+        <TextInput_Styled
+          onChangeText={(enteredValue) => {
+            setEircode(enteredValue);
+          }}
+        />
       </TextInputContainer>
     </InputContainer>
   );

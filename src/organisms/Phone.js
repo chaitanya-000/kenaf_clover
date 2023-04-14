@@ -7,12 +7,17 @@ import {
   TextInputContainer,
 } from "../../styledComponents";
 
-const Phone = () => {
+const Phone = ({ setPhone }) => {
   return (
     <InputContainer>
       <TextInputContainer>
         <Label>Phone</Label>
-        <TextInput_Styled keyboardType="number-pad" />
+        <TextInput_Styled
+          keyboardType="number-pad"
+          onChangeText={(enteredValue) => {
+            setPhone(enteredValue);
+          }}
+        />
       </TextInputContainer>
     </InputContainer>
   );

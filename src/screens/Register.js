@@ -1,4 +1,5 @@
 import {
+  Alert,
   Image,
   KeyboardAvoidingView,
   StyleSheet,
@@ -29,34 +30,113 @@ import Phone from "../organisms/Phone";
 import StoreNameDropdown from "../organisms/StoreNameDropdown";
 import AddStoreModal from "./AddStoreModal";
 import axios from "axios";
+import City from "../organisms/City";
+import Country from "../organisms/Country";
+import EirCode from "../organisms/EirCode";
+import AddressLine2 from "../organisms/AddressLine2";
 
-const Register = () => {
+const Register = ({ navigation }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
-  const [mainOrId, setMainOrId] = useState("");
-  const [orAddress, setOrAddress] = useState("");
+  const [store, setStore] = useState(null);
+  const [orgAddress, setOrgAddress] = useState("");
   const [address2, setAddress2] = useState("");
+  const [email, setEmail] = useState("sample text");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [re_enterPassword, setRe_enterPassword] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
-  const [zipCode, setZipCode] = useState("");
+  const [eircode, setEircode] = useState("");
 
-  const [email, setEmail] = useState("sample text");
   const [show_AddStoreModal, setShow_AddStoreModal] = useState(false);
-  const [orgList, setOrgList] = useState(null);
-  const [store, setStore] = useState(null);
 
+  const [orgList, setOrgList] = useState(null);
   const getStoreName = () => {
     axios
       .get(`${BASE_URL}/organizationList`)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setOrgList(response.data.data);
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const registerUser = () => {
+    try {
+      if (!firstName) {
+        throw new Error("Please Enter First name");
+      }
+      if (!lastName) {
+        throw new Error("Please Enter last Name");
+      }
+      if (!store) {
+        throw new Error("Please Enter store");
+      }
+      if (!orgAddress) {
+        throw new Error("Please Enter Organization address");
+      }
+      if (!email) {
+        throw new Error("Please enter Email ");
+      }
+      if (!phone) {
+        throw new Error("Please Enter phone");
+      }
+      if (!password) {
+        throw new Error("Please Enter password");
+      }
+      if (!country) {
+        throw new Error("Please Enter country");
+      }
+      if (!eircode) {
+        throw new Error("Please Enter EIRCODE");
+      }
+      if (password.length < 6) {
+        throw new Error("Password should be at least 6 characters long");
+      }
+      if (password !== re_enterPassword) {
+        throw new Error("Passwords do not match");
+      }
+
+      axios
+        .post(`${BASE_URL}/cloverAppUserRegister`, {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password,
+          phone: phone,
+          mainOrId: store,
+          orAddress: orgAddress,
+          address2: address2,
+          city: city,
+          country: country,
+          zipCode: eircode,
+        })
+        .then((response) => {
+          if (response.data.data) {
+            setFirstName("");
+            setLastName("");
+            setStore(null);
+            setOrgAddress("");
+            setAddress2("");
+            setEmail("");
+            setPhone("");
+            setPassword("");
+            setRe_enterPassword("");
+            setCity("");
+            setCountry("");
+            setEircode("");
+            navigation.navigate("Login");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      Alert.alert(error.message);
+    }
   };
   useEffect(() => {
     getStoreName();
@@ -85,7 +165,26 @@ const Register = () => {
             }}
           >
             <BackButton>
-              <Ionicons name="md-arrow-back" size={25} color="white" />
+              <Ionicons
+                name="md-arrow-back"
+                size={25}
+                color="white"
+                onPress={() => {
+                  console.log(
+                    firstName,
+                    lastName,
+                    store,
+                    orgAddress,
+                    address2,
+                    email,
+                    password,
+                    re_enterPassword,
+                    city,
+                    country,
+                    eircode
+                  );
+                }}
+              />
             </BackButton>
             <OptionsButton>
               <MaterialCommunityIcons
@@ -118,7 +217,12 @@ const Register = () => {
                 contentContainerStyle={styles.scrollViewContentContainer}
               >
                 <ScreenName style={styles.screenName}>Register</ScreenName>
-                <FirstNameLastName />
+                <FirstNameLastName
+                  firstName={firstName}
+                  lastName={lastName}
+                  setFirstName={setFirstName}
+                  setLastName={setLastName}
+                />
                 <StoreNameDropdown
                   show_AddStoreModal={show_AddStoreModal}
                   setShow_AddStoreModal={setShow_AddStoreModal}
@@ -126,16 +230,26 @@ const Register = () => {
                   setOrgList={setOrgList}
                   setStore={setStore}
                 />
-                <OrgAddress />
-                {/* <OrgName /> */}
+                <OrgAddress
+                  orgAddress={orgAddress}
+                  setOrgAddress={setOrgAddress}
+                />
+                <AddressLine2 address2={address2} setAddress2={setAddress2} />
                 <EmailAddress email={email} setEmail={setEmail} />
-                <Phone />
-                <Password />
-                <ReenterPassword />
+                <Phone phone={phone} setPhone={setPhone} />
+                <Password password={password} setPassword={setPassword} />
+                <ReenterPassword
+                  re_enterPassword={re_enterPassword}
+                  setRe_enterPassword={setRe_enterPassword}
+                />
+                <City city={city} setCity={setCity} />
+                <Country country={country} setCountry={setCountry} />
+                <EirCode eircode={eircode} setEircode={setEircode} />
                 <SolidGreenButton
                   width={"85%"}
-                  height={"6%"}
+                  height={"4%"}
                   style={{ alignSelf: "center" }}
+                  onPress={registerUser}
                 >
                   <Text style={{ color: "white", fontWeight: "700" }}>
                     Sign Up

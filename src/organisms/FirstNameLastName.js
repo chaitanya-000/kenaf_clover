@@ -7,16 +7,22 @@ import {
   TextInput_Styled,
 } from "../../styledComponents";
 
-const FirstNameLastName = () => {
+const FirstNameLastName = ({ setFirstName, setLastName }) => {
   return (
     <InputContainer>
       <SplitContainer>
         <Label>FIRST NAME</Label>
-        <TextInput_Styled />
+        <TextInput_Styled
+          onChangeText={(enteredValue) => {
+            setFirstName(enteredValue);
+          }}
+        />
       </SplitContainer>
       <SplitContainer>
         <Label>Last Name</Label>
-        <TextInput_Styled />
+        <TextInput_Styled
+          onChangeText={(enteredValue) => setLastName(enteredValue)}
+        />
       </SplitContainer>
     </InputContainer>
   );

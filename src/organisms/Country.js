@@ -9,12 +9,16 @@ import {
   TextInputContainer,
 } from "../../styledComponents";
 
-const Country = () => {
+const Country = ({ setCountry }) => {
   return (
     <InputContainer>
       <TextInputContainer>
         <Label>Country</Label>
-        <TextInput_Styled />
+        <TextInput_Styled
+          onChangeText={(enteredValue) => {
+            setCountry(enteredValue);
+          }}
+        />
       </TextInputContainer>
     </InputContainer>
   );

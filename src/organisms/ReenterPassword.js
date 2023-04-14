@@ -9,7 +9,7 @@ import {
   TextInputContainer,
 } from "../../styledComponents";
 
-const ReenterPassword = ({ setRe_enteredPassword, password }) => {
+const ReenterPassword = ({ setRe_enterPassword, re_enterPassword }) => {
   return (
     <InputContainer>
       <TextInputContainer>
@@ -17,7 +17,9 @@ const ReenterPassword = ({ setRe_enteredPassword, password }) => {
         <TextInput_Styled
           textContentType="password"
           secureTextEntry
-          onChangeText={(value) => setRe_enteredPassword(value)}
+          onChangeText={(enteredValue) => {
+            setRe_enterPassword(enteredValue);
+          }}
         />
       </TextInputContainer>
     </InputContainer>

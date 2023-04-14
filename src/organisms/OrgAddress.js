@@ -9,12 +9,16 @@ import {
   TextInputContainer,
 } from "../../styledComponents";
 
-const OrgAddress = () => {
+const OrgAddress = ({ setOrgAddress }) => {
   return (
     <InputContainer>
       <TextInputContainer>
         <Label>Organization Address</Label>
-        <TextInput_Styled />
+        <TextInput_Styled
+          onChangeText={(enteredValue) => {
+            setOrgAddress(enteredValue);
+          }}
+        />
       </TextInputContainer>
     </InputContainer>
   );
