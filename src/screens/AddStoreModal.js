@@ -4,30 +4,48 @@ import {
   View,
   TouchableOpacity,
   Pressable,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 
 import { AntDesign } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 import axios from "axios";
-import { height, width } from "../../helperFunction";
+import { BASE_URL, height, width } from "../../helperFunction";
 
-const AddStoreModal = ({ show_AddStoreModal, setShow_AddStoreModal }) => {
-  const [enteredStoreName, setEnteredStoreName] = useState("");
+const AddStoreModal = ({
+  show_AddStoreModal,
+  setShow_AddStoreModal,
+  getStoreName,
+}) => {
+  const [enteredStoreName, setEnteredStoreName] = useState(null);
 
-  // const sendStoreName = () => {
-  //   axios
-  //     .post("https://kenaf.ie/AddShop", {
-  //       mainOrName: enteredStoreName,
-  //     })
-  //     .then((response) => {
-  //       setShow_AddStoreModal(false);
-  //       getOrgNames();
-  //     })
-  //     .catch((error) => {
-  //       alert(error.message);
-  //     });
-  // };
+  const sendStoreName = () => {
+    try {
+      if (!enteredStoreName) {
+        throw new Error("Store name cannot be empty !");
+      }
+      if (enteredStoreName.length <= 2) {
+        throw new Error("Enter a valid store name");
+      }
+      axios
+        .post(`${BASE_URL}/AddShop`, {
+          mainOrName: enteredStoreName,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.data.data) {
+            getStoreName();
+          }
+          setShow_AddStoreModal(false);
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  };
 
   return (
     <TouchableOpacity
@@ -52,10 +70,12 @@ const AddStoreModal = ({ show_AddStoreModal, setShow_AddStoreModal }) => {
         <View style={styles.textInputAndButton}>
           <TextInput
             style={styles.textInput}
-            // onChangeText={(enteredValue) => setEnteredStoreName(enteredValue)}
+            onChangeText={(enteredValue) => {
+              setEnteredStoreName(enteredValue);
+            }}
           />
           <TouchableOpacity
-            // onPress={sendStoreName}
+            onPress={sendStoreName}
             style={{
               backgroundColor: "#26ae60ed",
 

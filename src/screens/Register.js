@@ -31,6 +31,17 @@ import AddStoreModal from "./AddStoreModal";
 import axios from "axios";
 
 const Register = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [mainOrId, setMainOrId] = useState("");
+  const [orAddress, setOrAddress] = useState("");
+  const [address2, setAddress2] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [zipCode, setZipCode] = useState("");
+
   const [email, setEmail] = useState("sample text");
   const [show_AddStoreModal, setShow_AddStoreModal] = useState(false);
   const [orgList, setOrgList] = useState(null);
@@ -40,7 +51,7 @@ const Register = () => {
     axios
       .get(`${BASE_URL}/organizationList`)
       .then((response) => {
-        // console.log(response.data.data);
+        console.log(response);
         setOrgList(response.data.data);
       })
       .catch((error) => {
@@ -49,7 +60,6 @@ const Register = () => {
   };
   useEffect(() => {
     getStoreName();
-    console.log(store);
   }, []);
   return (
     <>
@@ -138,6 +148,7 @@ const Register = () => {
       </KeyboardAvoidingView>
       {show_AddStoreModal && (
         <AddStoreModal
+          getStoreName={getStoreName}
           show_AddStoreModal={show_AddStoreModal}
           setShow_AddStoreModal={setShow_AddStoreModal}
         />

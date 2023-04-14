@@ -155,29 +155,3 @@ const styles = StyleSheet.create({
   },
 });
 
-// const sendLoginData = () => {
-//   if (email && password && re_enteredPassword) {
-//     if (password.length >= 6) {
-//       if (password === re_enteredPassword) {
-//         axios
-//           .post(`https://kenaf.ie/cloverAppLoginCheckUsers`, {
-//             email: email,
-//             password: password,
-//           })
-//           .then((response) => {
-//             console.log(response);
-//           })
-//           .catch((error) => {
-//             console.log(error);
-//             alert(error.response.data.message[0]);
-//           });
-//       } else {
-//         Alert.alert("Passwords do not match");
-//       }
-//     } else {
-//       Alert.alert("Password should be at least 6 characters long");
-//     }
-//   } else {
-//     Alert.alert("All fields are necessary. Please enter the credentials");
-//   }
-// };
