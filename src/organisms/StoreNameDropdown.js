@@ -6,28 +6,23 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
-  TextInput,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
 
-const { width } = Dimensions.get("window");
-
-const Dropdown = ({ show_AddStoreModal, setShow_AddStoreModal }) => {
+const Dropdown = ({
+  show_AddStoreModal,
+  setShow_AddStoreModal,
+  orgList,
+  setStore,
+}) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [showOptions, setShowOptions] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
 
-  const handleOptionPress = (option) => {
-    setSelectedOption(option);
+  const handleAfterSelectingStore = (eachStore) => {
+    setSelectedOption(eachStore.mainOrName);
     setShowOptions(false);
-    setSearchQuery("");
+    setStore(eachStore.mainOrId);
   };
-
-  const options = ["Mango", "banana", "Berry", "apple", "Oranges"];
-  const filteredOptions = options.filter((option) =>
-    option.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <View style={styles.container}>
@@ -50,8 +45,6 @@ const Dropdown = ({ show_AddStoreModal, setShow_AddStoreModal }) => {
           style={showOptions ? styles.button_DropDownActive : styles.button}
           onPress={() => setShow_AddStoreModal(!show_AddStoreModal)}
         >
-          {/* <Entypo name="add-to-list" size={25} color="black" />
-           */}
           <Text style={{ fontSize: 14, color: "white", fontWeight: "700" }}>
             Add store
           </Text>
@@ -64,13 +57,15 @@ const Dropdown = ({ show_AddStoreModal, setShow_AddStoreModal }) => {
             style={styles.optionsContainer}
             nestedScrollEnabled={true}
           >
-            {filteredOptions.map((option) => (
+            {orgList.map((eachStore) => (
               <TouchableOpacity
-                key={option}
                 style={styles.optionButton}
-                onPress={() => handleOptionPress(option)}
+                key={eachStore.mainOrId}
+                onPress={() => handleAfterSelectingStore(eachStore)}
               >
-                <Text style={styles.optionButtonText}>{option}</Text>
+                <Text style={styles.optionButtonText}>
+                  {eachStore.mainOrName}
+                </Text>
               </TouchableOpacity>
             ))}
           </ScrollView>

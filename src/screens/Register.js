@@ -5,7 +5,7 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BackButton,
   SolidGreenButton,
@@ -18,7 +18,7 @@ import {
 } from "../../styledComponents";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { height, width } from "../../helperFunction";
+import { BASE_URL, height, width } from "../../helperFunction";
 import FirstNameLastName from "../organisms/FirstNameLastName";
 import OrgName from "../organisms/OrgName";
 import EmailAddress from "../organisms/EmailAddress";
@@ -28,14 +28,29 @@ import OrgAddress from "../organisms/OrgAddress";
 import Phone from "../organisms/Phone";
 import StoreNameDropdown from "../organisms/StoreNameDropdown";
 import AddStoreModal from "./AddStoreModal";
+import axios from "axios";
 
 const Register = () => {
   const [email, setEmail] = useState("sample text");
-  const [show_AddStoreModal, setShow_AddStoreModal] = useState(true);
+  const [show_AddStoreModal, setShow_AddStoreModal] = useState(false);
+  const [orgList, setOrgList] = useState(null);
+  const [store, setStore] = useState(null);
 
-  const sendData = () => {
-    axios.post(BASE_URL);
+  const getStoreName = () => {
+    axios
+      .get(`${BASE_URL}/organizationList`)
+      .then((response) => {
+        // console.log(response.data.data);
+        setOrgList(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+  useEffect(() => {
+    getStoreName();
+    console.log(store);
+  }, []);
   return (
     <>
       <KeyboardAvoidingView
@@ -93,17 +108,20 @@ const Register = () => {
                 contentContainerStyle={styles.scrollViewContentContainer}
               >
                 <ScreenName style={styles.screenName}>Register</ScreenName>
+                <FirstNameLastName />
                 <StoreNameDropdown
                   show_AddStoreModal={show_AddStoreModal}
                   setShow_AddStoreModal={setShow_AddStoreModal}
+                  orgList={orgList}
+                  setOrgList={setOrgList}
+                  setStore={setStore}
                 />
-                <FirstNameLastName />
-                <OrgName />
+                <OrgAddress />
+                {/* <OrgName /> */}
                 <EmailAddress email={email} setEmail={setEmail} />
+                <Phone />
                 <Password />
                 <ReenterPassword />
-                <OrgAddress />
-                <Phone />
                 <SolidGreenButton
                   width={"85%"}
                   height={"6%"}
