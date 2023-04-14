@@ -13,7 +13,7 @@ import { Entypo } from "@expo/vector-icons";
 
 const { width } = Dimensions.get("window");
 
-const Dropdown = ({}) => {
+const Dropdown = ({ show_AddStoreModal, setShow_AddStoreModal }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [showOptions, setShowOptions] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -37,7 +37,7 @@ const Dropdown = ({}) => {
           onPress={() => setShowOptions(!showOptions)}
         >
           <Text style={styles.selectButtonText}>
-            {selectedOption || "Select an option"}
+            {selectedOption || "Select store"}
           </Text>
           <MaterialIcons
             name={showOptions ? "keyboard-arrow-up" : "keyboard-arrow-down"}
@@ -46,20 +46,20 @@ const Dropdown = ({}) => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
-          <Entypo name="add-to-list" size={25} color="black" />
+        <TouchableOpacity
+          style={showOptions ? styles.button_DropDownActive : styles.button}
+          onPress={() => setShow_AddStoreModal(!show_AddStoreModal)}
+        >
+          {/* <Entypo name="add-to-list" size={25} color="black" />
+           */}
+          <Text style={{ fontSize: 14, color: "white", fontWeight: "700" }}>
+            Add store
+          </Text>
         </TouchableOpacity>
       </View>
 
       {showOptions && (
         <View style={{ height: "70%", width: "90%" }}>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search options"
-            value={searchQuery}
-            onChangeText={(text) => setSearchQuery(text)}
-          />
-
           <ScrollView
             style={styles.optionsContainer}
             nestedScrollEnabled={true}
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: width * 0.8,
+    width: "100%",
     marginBottom: 16,
     // borderWidth: 1,
   },
@@ -106,10 +106,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "#ccc",
-    width: "76%",
+    width: "66%",
   },
   selectButtonText: {
-    fontSize: 20,
+    fontSize: 16,
     color: "#333",
     textAlign: "center",
   },
@@ -144,11 +144,23 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button: {
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    // paddingVertical: 12,
+    // paddingHorizontal: 16,
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 8,
-    width: "20%",
-    height: "85%",
+    width: "27%",
+    height: "84%",
+    backgroundColor: "#26AE60",
+  },
+  button_DropDownActive: {
+    // paddingVertical: 12,
+    // paddingHorizontal: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 8,
+    width: "27%",
+    height: "60%",
     backgroundColor: "#26AE60",
   },
   buttonText: {
