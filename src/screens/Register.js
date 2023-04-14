@@ -47,6 +47,10 @@ import StoreNameDropdown from "../organisms/StoreNameDropdown";
 
 const Register = () => {
   const [email, setEmail] = useState("sample text");
+
+  const sendData = () => {
+    axios.post(BASE_URL);
+  };
   return (
     <KeyboardAvoidingView
       style={{ width: width, height: height }}

@@ -9,6 +9,7 @@ import {
   TextInput,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 const { width } = Dimensions.get("window");
 
@@ -23,39 +24,35 @@ const Dropdown = ({}) => {
     setSearchQuery("");
   };
 
-  const options = [
-    "Mango",
-    "banana",
-    "Berry",
-    "apple",
-    "Oranges",
-    "Mango",
-    "banana",
-    "Berry",
-    "apple",
-    "Oranges",
-  ];
+  const options = ["Mango", "banana", "Berry", "apple", "Oranges"];
   const filteredOptions = options.filter((option) =>
     option.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.selectButton}
-        onPress={() => setShowOptions(!showOptions)}
-      >
-        <Text style={styles.selectButtonText}>
-          {selectedOption || "Select an option"}
-        </Text>
-        <MaterialIcons
-          name={showOptions ? "keyboard-arrow-up" : "keyboard-arrow-down"}
-          size={24}
-          color="#333"
-        />
-      </TouchableOpacity>
+      <View style={styles.row}>
+        <TouchableOpacity
+          style={styles.selectButton}
+          onPress={() => setShowOptions(!showOptions)}
+        >
+          <Text style={styles.selectButtonText}>
+            {selectedOption || "Select an option"}
+          </Text>
+          <MaterialIcons
+            name={showOptions ? "keyboard-arrow-up" : "keyboard-arrow-down"}
+            size={24}
+            color="#333"
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button}>
+          <Entypo name="add-to-list" size={25} color="black" />
+        </TouchableOpacity>
+      </View>
+
       {showOptions && (
-        <View style={{ height: "70%", width: "90%", backgroundColor: "red" }}>
+        <View style={{ height: "70%", width: "90%" }}>
           <TextInput
             style={styles.searchInput}
             placeholder="Search options"
@@ -91,8 +88,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: "10%",
   },
-  selectButton: {
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     width: width * 0.8,
+    marginBottom: 16,
+    // borderWidth: 1,
+  },
+  selectButton: {
     paddingVertical: 12,
     paddingHorizontal: 16,
     alignItems: "center",
@@ -102,7 +106,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "#ccc",
-    marginBottom: 16,
+    width: "76%",
   },
   selectButtonText: {
     fontSize: 20,
@@ -138,6 +142,19 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     marginBottom: 10,
+  },
+  button: {
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    width: "20%",
+    height: "85%",
+    backgroundColor: "#26AE60",
+  },
+  buttonText: {
+    fontSize: 16,
+    color: "#fff",
+    textAlign: "center",
   },
 });
 
