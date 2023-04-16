@@ -21,7 +21,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BASE_URL, height, width } from "../../helperFunction";
 import FirstNameLastName from "../organisms/FirstNameLastName";
-import OrgName from "../organisms/OrgName";
 import EmailAddress from "../organisms/EmailAddress";
 import Password from "../organisms/Password";
 import ReenterPassword from "../organisms/ReenterPassword";
@@ -50,13 +49,12 @@ const Register = ({ navigation }) => {
   const [eircode, setEircode] = useState("");
 
   const [show_AddStoreModal, setShow_AddStoreModal] = useState(false);
-
+  const [reset, setReset] = useState(false);
   const [orgList, setOrgList] = useState(null);
   const getStoreName = () => {
     axios
       .get(`${BASE_URL}/organizationList`)
       .then((response) => {
-        // console.log(response);
         setOrgList(response.data.data);
       })
       .catch((error) => {
@@ -115,20 +113,9 @@ const Register = ({ navigation }) => {
           zipCode: eircode,
         })
         .then((response) => {
+          console.log(response);
           if (response.data.data) {
-            setFirstName("");
-            setLastName("");
-            setStore(null);
-            setOrgAddress("");
-            setAddress2("");
-            setEmail("");
-            setPhone("");
-            setPassword("");
-            setRe_enterPassword("");
-            setCity("");
-            setCountry("");
-            setEircode("");
-            navigation.navigate("Login");
+            setReset(true);
           }
         })
         .catch((error) => {
@@ -140,7 +127,24 @@ const Register = ({ navigation }) => {
   };
   useEffect(() => {
     getStoreName();
-  }, []);
+  }, [reset]);
+  useEffect(() => {
+    if (reset) {
+      setFirstName(null);
+      setLastName("");
+      setStore(null);
+      setOrgAddress("");
+      setAddress2("");
+      setEmail("");
+      setPhone("");
+      setPassword("");
+      setRe_enterPassword("");
+      setCity("");
+      setCountry("");
+      setEircode("");
+      setReset(false); // set reset back to false
+    }
+  }, [reset]);
   return (
     <>
       <KeyboardAvoidingView
@@ -165,26 +169,7 @@ const Register = ({ navigation }) => {
             }}
           >
             <BackButton>
-              <Ionicons
-                name="md-arrow-back"
-                size={25}
-                color="white"
-                onPress={() => {
-                  console.log(
-                    firstName,
-                    lastName,
-                    store,
-                    orgAddress,
-                    address2,
-                    email,
-                    password,
-                    re_enterPassword,
-                    city,
-                    country,
-                    eircode
-                  );
-                }}
-              />
+              <Ionicons name="md-arrow-back" size={25} color="white" />
             </BackButton>
             <OptionsButton>
               <MaterialCommunityIcons

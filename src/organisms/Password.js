@@ -9,7 +9,7 @@ import {
   TextInputContainer,
 } from "../../styledComponents";
 
-const Password = ({ password, setPassword }) => {
+const Password = ({ setPassword }) => {
   return (
     <InputContainer>
       <TextInputContainer>

@@ -29,7 +29,8 @@ function App() {
     //     <Stack.Screen name="QuickSale" component={QuickSale} />
     //   </Stack.Navigator>
     // </NavigationContainer>
-    <Register />
+    <Login />
+    // <Register />
   );
 }
 

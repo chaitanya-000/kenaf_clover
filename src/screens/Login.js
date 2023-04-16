@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
   View,
-  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import {
@@ -17,14 +16,10 @@ import {
   StyledScrollView,
   ScrollViewContainer,
   ScreenName,
-  TextInputContainer,
-  TextInput_Styled,
-  InputContainer,
-  Label,
 } from "../../styledComponents";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { BASE_URL, height, width } from "../../helperFunction";
+import { height, width } from "../../helperFunction";
 import axios from "axios";
 import EmailAddress from "../organisms/EmailAddress";
 import Password from "../organisms/Password";
@@ -122,10 +117,7 @@ const Login = () => {
               <ScreenName style={styles.screenName}>Login</ScreenName>
               <EmailAddress email={email} setEmail={setEmail} />
               <Password password={password} setPassword={setPassword} />
-              <ReenterPassword
-                re_enteredPassword={re_enteredPassword}
-                setRe_enteredPassword={setRe_enteredPassword}
-              />
+              <ReenterPassword setRe_enteredPassword={setRe_enteredPassword} />
               <SolidGreenButton
                 width={"85%"}
                 height={"13%"}
@@ -154,4 +146,3 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
   },
 });
-

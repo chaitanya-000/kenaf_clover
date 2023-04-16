@@ -17,6 +17,7 @@ const Phone = ({ setPhone }) => {
           onChangeText={(enteredValue) => {
             setPhone(enteredValue);
           }}
+          maxLength={10}
         />
       </TextInputContainer>
     </InputContainer>
