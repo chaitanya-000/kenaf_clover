@@ -27,7 +27,7 @@ import { BASE_URL, height, width } from "../../helperFunction";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const CompanyDetails = () => {
+const CompanyDetails = ({ navigation }) => {
   const [uId, setUid] = useState(null);
   const [company_Name_Address, setCompany_Name_Address] = useState(null);
   const [tillName, setTillName] = useState("");
@@ -93,7 +93,7 @@ const CompanyDetails = () => {
             alignSelf: "center",
           }}
         >
-          <BackButton>
+          <BackButton onPress={() => navigation.navigate("Home")}>
             <Ionicons name="md-arrow-back" size={25} color="white" />
           </BackButton>
           <OptionsButton>
