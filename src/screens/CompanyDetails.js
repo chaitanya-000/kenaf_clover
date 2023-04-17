@@ -1,11 +1,12 @@
 import {
+  Alert,
   Image,
   KeyboardAvoidingView,
   StyleSheet,
   Text,
   View,
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BackButton,
   SolidGreenButton,
@@ -22,10 +23,60 @@ import {
 } from "../../styledComponents";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { height, width } from "../../helperFunction";
+import { BASE_URL, height, width } from "../../helperFunction";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CompanyDetails = () => {
+  const [uId, setUid] = useState(null);
+  const [company_Name_Address, setCompany_Name_Address] = useState(null);
+  const [tillName, setTillName] = useState("");
+
+  const getUserId = async () => {
+    try {
+      const value = await AsyncStorage.getItem("uId");
+      if (value !== null) {
+        setUid(value);
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  const getCompanyName_Address = () => {
+    axios
+      .post(`${BASE_URL}/TillGetDetails`, {
+        uId: JSON.parse(uId),
+      })
+      .then((response) => {
+        // console.log(response.data.data[0]);
+        setCompany_Name_Address(response.data.data[0]);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        // Alert.alert(error.message);
+      });
+  };
+
+  const sendTillName = () => {
+    axios
+      .post(`${BASE_URL}/TillRegister`, {
+        uId: JSON.parse(uId),
+        tName: tillName,
+      })
+      .then((response) => {
+        console.log(response);
+        Alert.alert(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  useEffect(() => {
+    getUserId();
+    uId && getCompanyName_Address();
+  }, [uId]);
   return (
     <KeyboardAvoidingView
       style={{ width: width, height: height }}
@@ -71,26 +122,31 @@ const CompanyDetails = () => {
               contentContainerStyle={styles.scrollViewContentContainer}
             >
               <ScreenName style={styles.screenName}>
-                Till Registration{" "}
+                Till Registration
               </ScreenName>
               <InputContainer>
                 <TextInputContainer>
                   <Label>Company Name</Label>
-                  <TextInput_Styled />
+                  <TextInput_Styled
+                    value={company_Name_Address?.mainOrName}
+                    editable={false}
+                  />
                 </TextInputContainer>
               </InputContainer>
               <InputContainer>
                 <TextInputContainer>
                   <Label>Company Address</Label>
-                  <TextInput_Styled />
+                  <TextInput_Styled
+                    value={`${company_Name_Address?.orAddress} , ${company_Name_Address?.zipCode}`}
+                    editable={false}
+                  />
                 </TextInputContainer>
               </InputContainer>
               <InputContainer>
                 <TextInputContainer>
                   <Label>Till Name</Label>
                   <TextInput_Styled
-                    editable={false}
-                    value={`${"nick"} , ${"afdhsjk"}`}
+                    onChangeText={(enteredValue) => setTillName(enteredValue)}
                   />
                 </TextInputContainer>
               </InputContainer>
@@ -98,6 +154,7 @@ const CompanyDetails = () => {
                 width={"85%"}
                 height={"13%"}
                 style={{ alignSelf: "center" }}
+                onPress={sendTillName}
               >
                 <Text style={{ color: "white", fontWeight: "700" }}>Link</Text>
               </SolidGreenButton>

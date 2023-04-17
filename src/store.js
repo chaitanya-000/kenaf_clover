@@ -35,11 +35,13 @@ const useAuthStore = create((set) => ({
           password: password,
         })
         .then((response) => {
+          console.log(response.data.user.uId);
           console.log(response.data.token);
           set({ loading: false });
 
           if (response.data.token) {
             AsyncStorage.setItem("token", JSON.stringify(response.data.token));
+            AsyncStorage.setItem("uId", JSON.stringify(response.data.user.uId));
             set({ hasToken: true });
           }
         })
