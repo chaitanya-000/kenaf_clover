@@ -37,26 +37,25 @@ const CompanyDetails = ({ navigation }) => {
       const value = await AsyncStorage.getItem("uId");
       if (value !== null) {
         setUid(value);
+        axios
+          .post(`${BASE_URL}/TillGetDetails`, {
+            uId: JSON.parse(uId),
+          })
+          .then((response) => {
+            console.log(response.data.data[0]);
+            setCompany_Name_Address(response.data.data[0]);
+          })
+          .catch((error) => {
+            console.log(error.message);
+            Alert.alert(error.message);
+          });
       }
     } catch (e) {
       console.log(e.message);
     }
   };
 
-  const getCompanyName_Address = () => {
-    axios
-      .post(`${BASE_URL}/TillGetDetails`, {
-        uId: JSON.parse(uId),
-      })
-      .then((response) => {
-        console.log(response.data.data[0]);
-        setCompany_Name_Address(response.data.data[0]);
-      })
-      .catch((error) => {
-        console.log(error.message);
-        // Alert.alert(error.message);
-      });
-  };
+  // const getCompanyName_Address = () => {};
 
   const sendTillName = () => {
     axios
@@ -75,7 +74,7 @@ const CompanyDetails = ({ navigation }) => {
 
   useEffect(() => {
     getUserId();
-    uId && getCompanyName_Address();
+    // uId && getCompanyName_Address();
   }, [uId]);
   return (
     <KeyboardAvoidingView
