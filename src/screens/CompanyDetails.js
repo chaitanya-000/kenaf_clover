@@ -49,7 +49,7 @@ const CompanyDetails = ({ navigation }) => {
         uId: JSON.parse(uId),
       })
       .then((response) => {
-        // console.log(response.data.data[0]);
+        console.log(response.data.data[0]);
         setCompany_Name_Address(response.data.data[0]);
       })
       .catch((error) => {
@@ -128,7 +128,11 @@ const CompanyDetails = ({ navigation }) => {
                 <TextInputContainer>
                   <Label>Company Name</Label>
                   <TextInput_Styled
-                    value={company_Name_Address?.mainOrName}
+                    value={
+                      company_Name_Address
+                        ? company_Name_Address?.mainOrName
+                        : "Loading..."
+                    }
                     editable={false}
                   />
                 </TextInputContainer>
@@ -137,7 +141,11 @@ const CompanyDetails = ({ navigation }) => {
                 <TextInputContainer>
                   <Label>Company Address</Label>
                   <TextInput_Styled
-                    value={`${company_Name_Address?.orAddress} , ${company_Name_Address?.zipCode}`}
+                    value={
+                      company_Name_Address
+                        ? `${company_Name_Address?.orAddress},${company_Name_Address?.zipCode}`
+                        : "Loading..."
+                    }
                     editable={false}
                   />
                 </TextInputContainer>
