@@ -25,55 +25,29 @@ import EmailAddress from "../organisms/EmailAddress";
 import Password from "../organisms/Password";
 import ReenterPassword from "../organisms/ReenterPassword";
 import LoadingSpinner from "../organisms/LoadingSpinner";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import useAuthStore from "../store";
+import { useStore } from "zustand";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [re_enteredPassword, setRe_enteredPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const loading = useStore(useAuthStore, (state) => state.loading);
 
-  const sendLoginData = async () => {
-    try {
-      if (!email || !password || !re_enteredPassword) {
-        throw new Error(
-          "All fields are necessary. Please enter the credentials"
-        );
-      }
+  // const [loading, setLoading] = useState(false);
 
-      if (password.length < 6) {
-        throw new Error("Password should be at least 6 characters long");
-      }
-
-      if (password !== re_enteredPassword) {
-        throw new Error("Passwords do not match");
-      }
-
-      setLoading(true);
-      const response = await axios
-        .post("https://kenaf.ie/cloverAppLoginCheckUsers", {
-          email,
-          password,
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          Alert.alert(error.response.data.message[0]);
-          console.log(error);
-        });
-      setLoading(false);
-    } catch (error) {
-      Alert.alert(error.message);
-      setLoading(false);
-    }
-  };
+  const login = useStore(useAuthStore, (state) => state.login);
+  async function handleLogin() {
+    await login(email, password, re_enteredPassword);
+  }
 
   return (
     <KeyboardAvoidingView
       style={{ width: width, height: height }}
       behavior="height"
     >
-      {loading && <LoadingSpinner loading={loading} setLoading={setLoading} />}
+      {loading && <LoadingSpinner loading={loading} />}
 
       <View style={{ width: width, height: "100%" }}>
         <HeaderTwoButtons
@@ -87,7 +61,12 @@ const Login = () => {
           }}
         >
           <BackButton>
-            <Ionicons name="md-arrow-back" size={25} color="white" />
+            <Ionicons
+              name="md-arrow-back"
+              size={25}
+              color="white"
+              onPress={() => getToken()}
+            />
           </BackButton>
           <OptionsButton>
             <MaterialCommunityIcons
@@ -122,7 +101,7 @@ const Login = () => {
                 width={"85%"}
                 height={"13%"}
                 style={{ alignSelf: "center" }}
-                onPress={sendLoginData}
+                onPress={handleLogin}
               >
                 <Text style={{ color: "white", fontWeight: "700" }}>Login</Text>
               </SolidGreenButton>

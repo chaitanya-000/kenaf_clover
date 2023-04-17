@@ -1,47 +1,29 @@
 import {
   Image,
   KeyboardAvoidingView,
-  SafeAreaView,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableOpacity,
   View,
-  ScrollView,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BackButton,
   SolidGreenButton,
-  Header,
-  PageContainer,
-  PageContent,
   WhiteRoundedContainer,
-  OutlinedGreenButton,
   OptionsButton,
   HeaderTwoButtons,
   StyledScrollView,
   ScrollViewContainer,
   ScreenName,
   InputContainer,
-  SplitContainer,
   Label,
   TextInput_Styled,
   TextInputContainer,
 } from "../../styledComponents";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { height, responsiveFontSize, width } from "../../helperFunction";
-import FirstNameLastName from "../organisms/FirstNameLastName";
-import OrgName from "../organisms/OrgName";
-import EmailAddress from "../organisms/EmailAddress";
-import Password from "../organisms/Password";
-import ReenterPassword from "../organisms/ReenterPassword";
-import AddressLine1 from "../organisms/AddressLine1";
-import AddressLine2 from "../organisms/AddressLine2";
-import City from "../organisms/City";
-import Country from "../organisms/Country";
-import EirCode from "../organisms/EirCode";
+import { height, width } from "../../helperFunction";
+import axios from "axios";
 
 const CompanyDetails = () => {
   return (
@@ -88,23 +70,36 @@ const CompanyDetails = () => {
             <StyledScrollView
               contentContainerStyle={styles.scrollViewContentContainer}
             >
-              <ScreenName style={styles.screenName}>CompanyDetails</ScreenName>
+              <ScreenName style={styles.screenName}>
+                Till Registration{" "}
+              </ScreenName>
               <InputContainer>
                 <TextInputContainer>
-                  <Label>Email Address</Label>
-                  <TextInput_Styled onChangeText={(value) => setEmail(value)} />
+                  <Label>Company Name</Label>
+                  <TextInput_Styled />
                 </TextInputContainer>
               </InputContainer>
-              <Password />
-              <ReenterPassword />
+              <InputContainer>
+                <TextInputContainer>
+                  <Label>Company Address</Label>
+                  <TextInput_Styled />
+                </TextInputContainer>
+              </InputContainer>
+              <InputContainer>
+                <TextInputContainer>
+                  <Label>Till Name</Label>
+                  <TextInput_Styled
+                    editable={false}
+                    value={`${"nick"} , ${"afdhsjk"}`}
+                  />
+                </TextInputContainer>
+              </InputContainer>
               <SolidGreenButton
                 width={"85%"}
                 height={"13%"}
                 style={{ alignSelf: "center" }}
               >
-                <Text style={{ color: "white", fontWeight: "700" }}>
-                  Sign Up
-                </Text>
+                <Text style={{ color: "white", fontWeight: "700" }}>Link</Text>
               </SolidGreenButton>
             </StyledScrollView>
           </ScrollViewContainer>

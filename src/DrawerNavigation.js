@@ -13,12 +13,15 @@ import Icon from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Entypo } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import { useStore } from "zustand";
+import useAuthStore from "./store";
 
 const DrawerNavigation = (props) => {
   const Drawer = createDrawerNavigator();
+  const logout = useStore(useAuthStore, (state) => state.logout);
 
   const handleLogout = () => {
-    // add your logout functionality here
+    logout();
   };
 
   const CustomDrawerContent = (props) => {
