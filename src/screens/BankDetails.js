@@ -1,11 +1,12 @@
 import {
+  Alert,
   Image,
   KeyboardAvoidingView,
   StyleSheet,
   Text,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BackButton,
   SolidGreenButton,
@@ -22,12 +23,74 @@ import {
 } from "../../styledComponents";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { height, width } from "../../helperFunction";
-import Password from "../organisms/Password";
-import ReenterPassword from "../organisms/ReenterPassword";
+import { BASE_URL, height, width } from "../../helperFunction";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const BankDetails = () => {
-  console.log("qkdnwqkl");
+  const [bankName, setBankName] = useState("");
+  const [BIC, setBIC] = useState("");
+  const [IBAN, setIBAN] = useState("");
+  const [uId, setUid] = useState(null);
+
+  const sendBankDetails = () => {
+    try {
+      if (!bankName) {
+        throw new Error("Bank name cannot be empty");
+      }
+      if (!BIC) {
+        throw new Error("BIC cannot be empty");
+      }
+      if (!IBAN) {
+        throw new Error("IBAN  cannot be empty");
+      }
+
+      axios
+        .post(`${BASE_URL}/RetailBankAccount`, {
+          uId: uId,
+          bankName: bankName,
+          BIC: BIC,
+          IBAN: IBAN,
+        })
+        .then((response) => {
+          console.log("Response", response.data.data);
+          Alert.alert(response.data.data);
+        })
+        .catch((error) => {
+          console.log("Error", error);
+        });
+    } catch (error) {
+      Alert.alert(error.message);
+      console.log("Error", error);
+    }
+  };
+
+  //   const getUserId = async () => {
+  //     try {
+  //       const value = await AsyncStorage.getItem("uId");
+  //       if (value !== null) {
+  //         setUid(value);
+  //       }
+  //     } catch (e) {
+  //       console.log(e.message);
+  //     }
+  //   };
+
+  useEffect(() => {
+    const getUserId = async () => {
+      try {
+        const value = await AsyncStorage.getItem("uId");
+        if (value !== null) {
+          //   console.log(value);
+          setUid(JSON.parse(value));
+        }
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+
+    getUserId();
+  }, []);
   return (
     <KeyboardAvoidingView
       style={{ width: width, height: height }}
@@ -76,28 +139,35 @@ const BankDetails = () => {
               <InputContainer>
                 <TextInputContainer>
                   <Label>Bank Name</Label>
-                  <TextInput_Styled />
+                  <TextInput_Styled
+                    onChangeText={(enteredValue) => setBankName(enteredValue)}
+                  />
                 </TextInputContainer>
               </InputContainer>
               <InputContainer>
                 <TextInputContainer>
                   <Label>BIC</Label>
-                  <TextInput_Styled />
+                  <TextInput_Styled
+                    onChangeText={(enteredValue) => setBIC(enteredValue)}
+                  />
                 </TextInputContainer>
               </InputContainer>
               <InputContainer>
                 <TextInputContainer>
                   <Label>IBAN</Label>
-                  <TextInput_Styled />
+                  <TextInput_Styled
+                    onChangeText={(enteredValue) => setIBAN(enteredValue)}
+                  />
                 </TextInputContainer>
               </InputContainer>
               <SolidGreenButton
                 width={"85%"}
                 height={"13%"}
                 style={{ alignSelf: "center" }}
+                onPress={sendBankDetails}
               >
                 <Text style={{ color: "white", fontWeight: "700" }}>
-                  Sign Up
+                  Register
                 </Text>
               </SolidGreenButton>
             </StyledScrollView>
