@@ -35,18 +35,24 @@ const CompanyDetails = ({ navigation }) => {
   const [tillName, setTillName] = useState("");
   const [show_AddTillModal, setShow_AddTillModal] = useState(false);
   const [tillList, setTillList] = useState(null);
-  const [till, setTill] = useState(null);
+  const [tillID, setTillID] = useState(null);
 
-  const sendTillName = () => {
+  const linkTill = () => {
     axios
-      .post(`${BASE_URL}/TillRegister`, {
-        uId: JSON.parse(uId),
-        tName: tillName,
+      .post(`${BASE_URL}/LinkTill`, {
+        tID: tillID,
       })
       .then((response) => {
         console.log(response);
-        Alert.alert(response.data.data);
-        getTillNameList();
+        Alert.alert(response.data.data, "", [
+          {
+            text: "Ok",
+            onPress: () => {
+              navigation.navigate("Home");
+              getTillNameList();
+            },
+          },
+        ]);
       })
       .catch((error) => {
         console.log(error.message);
@@ -74,7 +80,7 @@ const CompanyDetails = ({ navigation }) => {
         setUid(value);
         axios
           .post(`${BASE_URL}/TillGetDetails`, {
-            uId: JSON.parse(uId),
+            uId: JSON.parse(value),
           })
           .then((response) => {
             // console.log(response.data.data[0]);
@@ -175,29 +181,27 @@ const CompanyDetails = ({ navigation }) => {
                     />
                   </TextInputContainer>
                 </InputContainer>
-                <InputContainer>
-                  <TextInputContainer>
-                    <Label>Till Name</Label>
-                    <TextInput_Styled
-                      onChangeText={(enteredValue) => setTillName(enteredValue)}
-                    />
-                  </TextInputContainer>
-                </InputContainer>
+                <Label style={{ marginBottom: 10 }}>
+                  Select till / Add till
+                </Label>
+
                 <TillNameDropdown
                   show_AddTillModal={show_AddTillModal}
                   setShow_AddTillModal={setShow_AddTillModal}
                   tillList={tillList}
                   setTillList={setTillList}
-                  till={till}
-                  setTill={setTill}
+                  // till={till}
+                  setTillName={setTillName}
                   getTillNameList={getTillNameList}
+                  tillID={tillID}
+                  setTillID={setTillID}
                 />
 
                 <SolidGreenButton
                   width={"85%"}
                   height={"13%"}
                   style={{ alignSelf: "center" }}
-                  onPress={sendTillName}
+                  onPress={linkTill}
                 >
                   <Text style={{ color: "white", fontWeight: "700" }}>
                     Link
@@ -213,6 +217,9 @@ const CompanyDetails = ({ navigation }) => {
           getTillNameList={getTillNameList}
           show_AddTillModal={show_AddTillModal}
           setShow_AddTillModal={setShow_AddTillModal}
+          uId={uId}
+          tillName={tillName}
+          setTillName={setTillName}
         />
       )}
     </>

@@ -26,10 +26,7 @@ function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{ headerShown: false }}
-        initialRouteName="Login"
-      >
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         {hasToken ? (
           <>
             <Stack.Screen

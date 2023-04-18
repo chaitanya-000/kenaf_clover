@@ -17,25 +17,28 @@ const AddTillModal = ({
   getTillNameList,
   show_AddTillModal,
   setShow_AddTillModal,
+  uId,
+  setTillName,
+  tillName,
 }) => {
-  const [enteredTillName, setEnteredTillName] = useState(null);
-
-  const sendStoreName = () => {
+  const sendTillName = () => {
+    console.log(tillName);
     try {
-      if (!enteredTillName) {
-        throw new Error("Store name cannot be empty !");
+      if (!tillName) {
+        throw new Error("Till name cannot be empty !");
       }
-      if (enteredTillName.length <= 2) {
-        throw new Error("Enter a valid store name");
+      if (tillName.length <= 1) {
+        throw new Error("Enter a valid Till name");
       }
       axios
-        .post(`${BASE_URL}/AddShop`, {
-          mainOrName: enteredTillName,
+        .post(`${BASE_URL}/TillRegister`, {
+          uId: JSON.parse(uId),
+          tName: tillName,
         })
         .then((response) => {
           console.log(response);
           if (response.data.data) {
-            getStoreName();
+            getTillNameList();
           }
           setShow_AddTillModal(false);
         })
@@ -66,11 +69,11 @@ const AddTillModal = ({
           <TextInput
             style={styles.textInput}
             onChangeText={(enteredValue) => {
-              setEnteredTillName(enteredValue);
+              setTillName(enteredValue);
             }}
           />
           <TouchableOpacity
-            onPress={sendStoreName}
+            onPress={sendTillName}
             style={{
               backgroundColor: "#26ae60ed",
 

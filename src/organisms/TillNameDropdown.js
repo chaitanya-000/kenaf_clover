@@ -13,7 +13,9 @@ const TillNameDropdown = ({
   show_AddTillModal,
   setShow_AddTillModal,
   tillList,
-  setTill,
+  setTillName,
+  tillID,
+  setTillID,
 }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [showOptions, setShowOptions] = useState(false);
@@ -21,7 +23,7 @@ const TillNameDropdown = ({
   const handleAfterSelectingStore = (eachStore) => {
     setSelectedOption(eachStore.tName);
     setShowOptions(false);
-    setTill(eachStore.tID);
+    setTillID(eachStore.tID);
   };
 
   return (
@@ -32,7 +34,7 @@ const TillNameDropdown = ({
           onPress={() => setShowOptions(!showOptions)}
         >
           <Text style={styles.selectButtonText}>
-            {selectedOption || "Select store"}
+            {selectedOption || "Select Till"}
           </Text>
           <MaterialIcons
             name={showOptions ? "keyboard-arrow-up" : "keyboard-arrow-down"}
