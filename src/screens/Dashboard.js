@@ -10,6 +10,7 @@ import {
 } from "../../styledComponents";
 import { Ionicons } from "@expo/vector-icons";
 import { responsiveFontSize } from "../../helperFunction";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Dashboard = () => {
   return (

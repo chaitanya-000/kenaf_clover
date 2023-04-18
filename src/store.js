@@ -35,7 +35,6 @@ const useAuthStore = create((set) => ({
           password: password,
         })
         .then((response) => {
-          console.log(response.data.user.uId);
           console.log(response.data.token);
           set({ loading: false });
 

@@ -8,6 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const TillNameDropdown = ({
   show_AddTillModal,
@@ -24,6 +25,7 @@ const TillNameDropdown = ({
     setSelectedOption(eachStore.tName);
     setShowOptions(false);
     setTillID(eachStore.tID);
+    AsyncStorage.setItem("tID", JSON.stringify(eachStore.tID));
   };
 
   return (
@@ -34,7 +36,7 @@ const TillNameDropdown = ({
           onPress={() => setShowOptions(!showOptions)}
         >
           <Text style={styles.selectButtonText}>
-            {selectedOption || "Select Till"}
+            {selectedOption || "Select Till" || tillID}
           </Text>
           <MaterialIcons
             name={showOptions ? "keyboard-arrow-up" : "keyboard-arrow-down"}

@@ -113,7 +113,7 @@ const Register = ({ navigation }) => {
           zipCode: eircode,
         })
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           if (response.data.data) {
             setReset(true);
           }

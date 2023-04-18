@@ -36,6 +36,24 @@ const CompanyDetails = ({ navigation }) => {
   const [show_AddTillModal, setShow_AddTillModal] = useState(false);
   const [tillList, setTillList] = useState(null);
   const [tillID, setTillID] = useState(null);
+  const [tillExists, setTillExists] = useState(false);
+  const [storedTillID, setStoredTillID] = useState(null);
+
+  const checkIfTillExists = async () => {
+    try {
+      const value = await AsyncStorage.getItem("tID");
+      if (value !== null) {
+        console.log("Till Exists-", JSON.parse(value));
+        setTillExists(false);
+        setStoredTillID(value);
+      } else {
+        console.log("Till doesn't exist");
+        setTillExists(true);
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
   const linkTill = () => {
     axios
@@ -43,13 +61,13 @@ const CompanyDetails = ({ navigation }) => {
         tID: tillID,
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         Alert.alert(response.data.data, "", [
           {
             text: "Ok",
             onPress: () => {
               navigation.navigate("Home");
-              getTillNameList();
+              checkIfTillExists();
             },
           },
         ]);
@@ -78,18 +96,19 @@ const CompanyDetails = ({ navigation }) => {
       const value = await AsyncStorage.getItem("uId");
       if (value !== null) {
         setUid(value);
-        axios
-          .post(`${BASE_URL}/TillGetDetails`, {
-            uId: JSON.parse(value),
-          })
-          .then((response) => {
-            // console.log(response.data.data[0]);
-            setCompany_Name_Address(response.data.data[0]);
-          })
-          .catch((error) => {
-            console.log("getUserId", error.message);
-            Alert.alert(error.message);
-          });
+        uId &&
+          axios
+            .post(`${BASE_URL}/TillGetDetails`, {
+              uId: JSON.parse(value),
+            })
+            .then((response) => {
+              // console.log(response.data.data);
+              setCompany_Name_Address(response.data.data[0]);
+            })
+            .catch((error) => {
+              console.log("getUserId", error.message);
+              Alert.alert(error.message);
+            });
       }
     } catch (e) {
       console.log(e.message);
@@ -99,7 +118,8 @@ const CompanyDetails = ({ navigation }) => {
   useEffect(() => {
     getUserId();
     uId && getTillNameList();
-  }, [uId]);
+    checkIfTillExists();
+  }, [uId, storedTillID]);
   return (
     <>
       <KeyboardAvoidingView
@@ -127,7 +147,9 @@ const CompanyDetails = ({ navigation }) => {
             <BackButton onPress={() => navigation.navigate("Home")}>
               <Ionicons name="md-arrow-back" size={25} color="white" />
             </BackButton>
-            <OptionsButton>
+            <OptionsButton
+            // onPress={checkIfTillExists}
+            >
               <MaterialCommunityIcons
                 name="dots-vertical"
                 size={24}
@@ -181,32 +203,50 @@ const CompanyDetails = ({ navigation }) => {
                     />
                   </TextInputContainer>
                 </InputContainer>
-                <Label style={{ marginBottom: 10 }}>
-                  Select till / Add till
-                </Label>
 
-                <TillNameDropdown
-                  show_AddTillModal={show_AddTillModal}
-                  setShow_AddTillModal={setShow_AddTillModal}
-                  tillList={tillList}
-                  setTillList={setTillList}
-                  // till={till}
-                  setTillName={setTillName}
-                  getTillNameList={getTillNameList}
-                  tillID={tillID}
-                  setTillID={setTillID}
-                />
+                {tillExists && (
+                  <>
+                    <Label style={{ marginBottom: 10 }}>
+                      Select till / Add till
+                    </Label>
 
-                <SolidGreenButton
-                  width={"85%"}
-                  height={"13%"}
-                  style={{ alignSelf: "center" }}
-                  onPress={linkTill}
-                >
-                  <Text style={{ color: "white", fontWeight: "700" }}>
-                    Link
-                  </Text>
-                </SolidGreenButton>
+                    <TillNameDropdown
+                      show_AddTillModal={show_AddTillModal}
+                      setShow_AddTillModal={setShow_AddTillModal}
+                      tillList={tillList}
+                      setTillList={setTillList}
+                      // till={till}
+                      setTillName={setTillName}
+                      getTillNameList={getTillNameList}
+                      tillID={tillID}
+                      setTillID={setTillID}
+                    />
+                  </>
+                )}
+
+                {tillExists && (
+                  <SolidGreenButton
+                    width={"85%"}
+                    height={"13%"}
+                    style={{ alignSelf: "center" }}
+                    onPress={linkTill}
+                  >
+                    <Text style={{ color: "white", fontWeight: "700" }}>
+                      Link
+                    </Text>
+                  </SolidGreenButton>
+                )}
+                {!tillExists && (
+                  <InputContainer>
+                    <TextInputContainer>
+                      <Label>Till ID</Label>
+                      <TextInput_Styled
+                        value={JSON.parse(storedTillID)}
+                        editable={false}
+                      />
+                    </TextInputContainer>
+                  </InputContainer>
+                )}
               </StyledScrollView>
             </ScrollViewContainer>
           </WhiteRoundedContainer>
