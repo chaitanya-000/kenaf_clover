@@ -19,7 +19,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { height, width } from "../../helperFunction";
 
-const Settings = () => {
+const Settings = ({ navigation }) => {
   const [email, setEmail] = useState("sample text");
   return (
     <KeyboardAvoidingView
@@ -72,7 +72,10 @@ const Settings = () => {
               <LineDivider
                 style={{ backgroundColor: "#E0E0E0", height: 1, width: "100%" }}
               />
-              <TouchableOpacity style={styles.optionContainer}>
+              <TouchableOpacity
+                style={styles.optionContainer}
+                onPress={() => navigation.navigate("BankDetails")}
+              >
                 <View style={styles.rightIconNameContainer}>
                   <TouchableOpacity style={styles.LeftIcon}>
                     <MaterialCommunityIcons
