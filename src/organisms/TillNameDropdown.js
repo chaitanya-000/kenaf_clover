@@ -10,10 +10,9 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 
 const TillNameDropdown = ({
-  setShow_AddTillModal,
   show_AddTillModal,
+  setShow_AddTillModal,
   tillList,
-  till,
   setTill,
 }) => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -44,10 +43,10 @@ const TillNameDropdown = ({
 
         <TouchableOpacity
           style={showOptions ? styles.button_DropDownActive : styles.button}
-          onPress={() => setShow_AddStoreModal(!show_AddStoreModal)}
+          onPress={() => setShow_AddTillModal(!show_AddTillModal)}
         >
           <Text style={{ fontSize: 14, color: "white", fontWeight: "700" }}>
-            Add store
+            Add Till
           </Text>
         </TouchableOpacity>
       </View>

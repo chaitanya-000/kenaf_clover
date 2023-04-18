@@ -61,12 +61,7 @@ const Login = () => {
           }}
         >
           <BackButton>
-            <Ionicons
-              name="md-arrow-back"
-              size={25}
-              color="white"
-              onPress={() => getToken()}
-            />
+            <Ionicons name="md-arrow-back" size={25} color="white" />
           </BackButton>
           <OptionsButton>
             <MaterialCommunityIcons
