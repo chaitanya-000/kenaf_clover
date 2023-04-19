@@ -4,6 +4,7 @@ import {
   KeyboardAvoidingView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import React, { useState } from "react";
@@ -29,7 +30,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import useAuthStore from "../store";
 import { useStore } from "zustand";
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [re_enteredPassword, setRe_enteredPassword] = useState("");
@@ -50,27 +51,6 @@ const Login = () => {
       {loading && <LoadingSpinner loading={loading} />}
 
       <View style={{ width: width, height: "100%" }}>
-        <HeaderTwoButtons
-          style={{
-            // borderWidth: 1,
-            zIndex: 12,
-            position: "absolute",
-            top: 20,
-            left: 0,
-            alignSelf: "center",
-          }}
-        >
-          <BackButton>
-            <Ionicons name="md-arrow-back" size={25} color="white" />
-          </BackButton>
-          <OptionsButton>
-            <MaterialCommunityIcons
-              name="dots-vertical"
-              size={24}
-              color="black"
-            />
-          </OptionsButton>
-        </HeaderTwoButtons>
         <Image
           source={require("../../images/kenafBackgroundImage.png")}
           style={{
@@ -100,6 +80,17 @@ const Login = () => {
               >
                 <Text style={{ color: "white", fontWeight: "700" }}>Login</Text>
               </SolidGreenButton>
+              <View style={styles.footer}>
+                <Text style={styles.dont_Have_An_Account}>
+                  Don’t have an account?
+                </Text>
+
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("Register")}
+                >
+                  <Text style={styles.RegisterNow}>Register Now</Text>
+                </TouchableOpacity>
+              </View>
             </StyledScrollView>
           </ScrollViewContainer>
         </WhiteRoundedContainer>
@@ -118,5 +109,17 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 700,
     marginBottom: "5%",
+  },
+  footer: {
+    alignItems: "center",
+    marginTop: "10%",
+    // borderWidth: 1,
+  },
+  dont_Have_An_Account: {
+    color: "rgba(130, 130, 130, 1)",
+  },
+  RegisterNow: {
+    color: "rgba(38, 174, 96, 1)",
+    fontWeight: "600",
   },
 });

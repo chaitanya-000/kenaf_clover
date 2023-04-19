@@ -4,6 +4,7 @@ import {
   KeyboardAvoidingView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
@@ -158,27 +159,6 @@ const Register = ({ navigation }) => {
             opacity: show_AddStoreModal ? 0.1 : 1,
           }}
         >
-          <HeaderTwoButtons
-            style={{
-              // borderWidth: 1,
-              zIndex: 12,
-              position: "absolute",
-              top: 20,
-              left: 0,
-              alignSelf: "center",
-            }}
-          >
-            <BackButton>
-              <Ionicons name="md-arrow-back" size={25} color="white" />
-            </BackButton>
-            <OptionsButton>
-              <MaterialCommunityIcons
-                name="dots-vertical"
-                size={24}
-                color="black"
-              />
-            </OptionsButton>
-          </HeaderTwoButtons>
           <Image
             source={require("../../images/kenafBackgroundImage.png")}
             style={{
@@ -240,6 +220,17 @@ const Register = ({ navigation }) => {
                     Sign Up
                   </Text>
                 </SolidGreenButton>
+                <View style={styles.footer}>
+                  <Text style={styles.already_have_an_account}>
+                    Already have an account?
+                  </Text>
+
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("Login")}
+                  >
+                    <Text style={styles.login}>Login</Text>
+                  </TouchableOpacity>
+                </View>
               </StyledScrollView>
             </ScrollViewContainer>
           </WhiteRoundedContainer>
@@ -266,5 +257,17 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 700,
     marginBottom: "5%",
+  },
+  footer: {
+    alignItems: "center",
+    marginTop: "10%",
+    // borderWidth: 1,
+  },
+  already_have_an_account: {
+    color: "rgba(130, 130, 130, 1)",
+  },
+  login: {
+    color: "rgba(38, 174, 96, 1)",
+    fontWeight: "600",
   },
 });
