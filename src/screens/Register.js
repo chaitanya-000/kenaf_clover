@@ -44,13 +44,13 @@ const Register = ({ navigation }) => {
   const [email, setEmail] = useState("sample text");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [re_enterPassword, setRe_enterPassword] = useState("");
+  const [re_enteredPassword, setRe_enteredPassword] = useState("");
+
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [eircode, setEircode] = useState("");
 
   const [show_AddStoreModal, setShow_AddStoreModal] = useState(false);
-  const [reset, setReset] = useState(false);
   const [orgList, setOrgList] = useState(null);
   const getStoreName = () => {
     axios
@@ -95,7 +95,7 @@ const Register = ({ navigation }) => {
       if (password.length < 6) {
         throw new Error("Password should be at least 6 characters long");
       }
-      if (password !== re_enterPassword) {
+      if (password !== re_enteredPassword) {
         throw new Error("Passwords do not match");
       }
 
@@ -114,9 +114,14 @@ const Register = ({ navigation }) => {
           zipCode: eircode,
         })
         .then((response) => {
-          // console.log(response);
+          console.log(response);
           if (response.data.data) {
-            setReset(true);
+            Alert.alert(response.data.data, "", [
+              {
+                text: "OK",
+                onPress: () => navigation.navigate("Login"),
+              },
+            ]);
           }
         })
         .catch((error) => {
@@ -128,24 +133,8 @@ const Register = ({ navigation }) => {
   };
   useEffect(() => {
     getStoreName();
-  }, [reset]);
-  useEffect(() => {
-    if (reset) {
-      setFirstName(null);
-      setLastName("");
-      setStore(null);
-      setOrgAddress("");
-      setAddress2("");
-      setEmail("");
-      setPhone("");
-      setPassword("");
-      setRe_enterPassword("");
-      setCity("");
-      setCountry("");
-      setEircode("");
-      setReset(false); // set reset back to false
-    }
-  }, [reset]);
+  }, []);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -204,8 +193,7 @@ const Register = ({ navigation }) => {
                 <Phone phone={phone} setPhone={setPhone} />
                 <Password password={password} setPassword={setPassword} />
                 <ReenterPassword
-                  re_enterPassword={re_enterPassword}
-                  setRe_enterPassword={setRe_enterPassword}
+                  setRe_enteredPassword={setRe_enteredPassword}
                 />
                 <City city={city} setCity={setCity} />
                 <Country country={country} setCountry={setCountry} />
