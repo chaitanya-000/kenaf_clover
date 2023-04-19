@@ -14,6 +14,7 @@ import useAuthStore from "./src/store";
 import { Image, View } from "react-native";
 import { height, width } from "./helperFunction";
 import BankDetails from "./src/screens/BankDetails";
+import ProfileUpdate from "./src/screens/ProfileUpdate";
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +46,7 @@ function App() {
             <Stack.Screen name="PaymentLogs" component={PaymentLogs} />
             <Stack.Screen name="QuickSale" component={QuickSale} />
             <Stack.Screen name="BankDetails" component={BankDetails} />
+            <Stack.Screen name="ProfileUpdate" component={ProfileUpdate} />
           </>
         ) : (
           <>

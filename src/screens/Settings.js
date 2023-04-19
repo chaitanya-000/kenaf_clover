@@ -50,7 +50,10 @@ const Settings = ({ navigation }) => {
             <StyledScrollView
               contentContainerStyle={styles.scrollViewContentContainer}
             >
-              <TouchableOpacity style={styles.optionContainer}>
+              <TouchableOpacity
+                style={styles.optionContainer}
+                onPress={() => navigation.navigate("ProfileUpdate")}
+              >
                 <View style={styles.rightIconNameContainer}>
                   <TouchableOpacity style={styles.LeftIcon}>
                     <MaterialCommunityIcons

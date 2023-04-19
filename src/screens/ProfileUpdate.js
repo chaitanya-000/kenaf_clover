@@ -1,49 +1,54 @@
 import {
-  Image,
   KeyboardAvoidingView,
-  SafeAreaView,
   StyleSheet,
-  Text,
   TextInput,
-  TouchableOpacity,
   View,
-  ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BackButton,
-  SolidGreenButton,
-  Header,
-  PageContainer,
-  PageContent,
   WhiteRoundedContainer,
-  OutlinedGreenButton,
-  OptionsButton,
   HeaderTwoButtons,
   StyledScrollView,
   ScrollViewContainer,
   ScreenName,
-  InputContainer,
-  SplitContainer,
-  Label,
   TextInput_Styled,
+  InputContainer,
+  TextInputContainer,
+  Label,
+  SplitContainer,
 } from "../../styledComponents";
 import { Ionicons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { height, responsiveFontSize, width } from "../../helperFunction";
-import FirstNameLastName from "../organisms/FirstNameLastName";
-import OrgName from "../organisms/OrgName";
-import EmailAddress from "../organisms/EmailAddress";
-import Password from "../organisms/Password";
-import ReenterPassword from "../organisms/ReenterPassword";
-import AddressLine1 from "../organisms/AddressLine1";
-import AddressLine2 from "../organisms/AddressLine2";
-import City from "../organisms/City";
-import Country from "../organisms/Country";
-import EirCode from "../organisms/EirCode";
+import { BASE_URL, height, width } from "../../helperFunction";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
-const ProfileUpdate = () => {
-  const [email, setEmail] = useState("sample text");
+const ProfileUpdate = ({ navigation }) => {
+  const [userDetails, setUserDetails] = useState(null);
+  useEffect(() => {
+    const getUserId = async () => {
+      try {
+        const value = await AsyncStorage.getItem("uId");
+        if (value !== null) {
+          axios
+            .post(`${BASE_URL}/RetailAccountInfo`, {
+              uId: JSON.parse(value),
+            })
+            .then((response) => {
+              console.log(response.data.data[0]);
+              setUserDetails(response.data.data[0]);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+    getUserId();
+  }, []);
+
   return (
     <KeyboardAvoidingView
       style={{ width: width, height: height }}
@@ -51,7 +56,7 @@ const ProfileUpdate = () => {
     >
       <View style={{ width: width, height: "100%" }}>
         <HeaderTwoButtons>
-          <BackButton>
+          <BackButton onPress={() => navigation.navigate("Settings")}>
             <Ionicons name="md-arrow-back" size={25} color="white" />
           </BackButton>
           <TextInput
@@ -74,23 +79,41 @@ const ProfileUpdate = () => {
               contentContainerStyle={styles.scrollViewContentContainer}
             >
               <ScreenName style={styles.screenName}>Profile Update</ScreenName>
-              <FirstNameLastName />
-              <OrgName />
-              <EmailAddress email={email} setEmail={setEmail} />
-              <Password />
-              <ReenterPassword />
-              <AddressLine1 />
-              <AddressLine2 />
-              <City />
-              <Country />
-              <EirCode />
-              <SolidGreenButton
-                width={"85%"}
-                height={"5%"}
-                style={{ alignSelf: "center" }}
-              >
-                <Text style={{ color: "white", fontWeight: "700" }}>Save</Text>
-              </SolidGreenButton>
+              <InputContainer>
+                <SplitContainer>
+                  <Label>FIRST NAME</Label>
+                  <TextInput_Styled
+                    editable={false}
+                    value={userDetails?.firstName}
+                  />
+                </SplitContainer>
+                <SplitContainer>
+                  <Label>Last Name</Label>
+                  <TextInput_Styled
+                    editable={false}
+                    value={userDetails?.lastName}
+                  />
+                </SplitContainer>
+              </InputContainer>
+
+              <InputContainer>
+                <TextInputContainer>
+                  <Label>Email Address</Label>
+                  <TextInput_Styled
+                    editable={false}
+                    value={userDetails?.email}
+                  />
+                </TextInputContainer>
+              </InputContainer>
+              <InputContainer>
+                <TextInputContainer>
+                  <Label>Phone</Label>
+                  <TextInput_Styled
+                    editable={false}
+                    value={userDetails?.phone}
+                  />
+                </TextInputContainer>
+              </InputContainer>
             </StyledScrollView>
           </ScrollViewContainer>
         </WhiteRoundedContainer>
