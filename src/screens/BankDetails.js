@@ -27,20 +27,20 @@ import { BASE_URL, height, width } from "../../helperFunction";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const BankDetails = () => {
+const BankDetails = ({ navigation }) => {
   const [bankName, setBankName] = useState("");
   const [BIC, setBIC] = useState("");
   const [IBAN, setIBAN] = useState("");
   const [uId, setUid] = useState(null);
+  const [bankDetailsExist, setBankDetailsExist] = useState(false);
+  const [bankDetails, setBankDetails] = useState(null);
 
   const sendBankDetails = () => {
     try {
       if (!bankName) {
         throw new Error("Bank name cannot be empty");
       }
-      if (!BIC) {
-        throw new Error("BIC cannot be empty");
-      }
+
       if (!IBAN) {
         throw new Error("IBAN  cannot be empty");
       }
@@ -74,7 +74,28 @@ const BankDetails = () => {
   //     } catch (e) {
   //       console.log(e.message);
   //     }
-  //   };
+  //   };value={bank}
+
+  const getBankDetails = (uId) => {
+    axios
+      .post(`${BASE_URL}/RetailBankAccountInfo`, {
+        uId: JSON.parse(uId),
+      })
+      .then((response) => {
+        console.log(response.data);
+        if (!response.data.data.length) {
+          setBankDetailsExist(false);
+          console.log("User has not entered bank details");
+        } else {
+          console.log("User has  entered bank details");
+          setBankDetailsExist(true);
+          setBankDetails(response.data.data[0]);
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
   useEffect(() => {
     const getUserId = async () => {
@@ -83,6 +104,7 @@ const BankDetails = () => {
         if (value !== null) {
           //   console.log(value);
           setUid(JSON.parse(value));
+          getBankDetails(value);
         }
       } catch (e) {
         console.log(e.message);
@@ -107,7 +129,7 @@ const BankDetails = () => {
             alignSelf: "center",
           }}
         >
-          <BackButton>
+          <BackButton onPress={() => navigation.navigate("Home")}>
             <Ionicons name="md-arrow-back" size={25} color="white" />
           </BackButton>
           <OptionsButton>
@@ -136,40 +158,77 @@ const BankDetails = () => {
               contentContainerStyle={styles.scrollViewContentContainer}
             >
               <ScreenName style={styles.screenName}>Bank Details</ScreenName>
-              <InputContainer>
-                <TextInputContainer>
-                  <Label>Bank Name</Label>
-                  <TextInput_Styled
-                    onChangeText={(enteredValue) => setBankName(enteredValue)}
-                  />
-                </TextInputContainer>
-              </InputContainer>
-              <InputContainer>
-                <TextInputContainer>
-                  <Label>BIC</Label>
-                  <TextInput_Styled
-                    onChangeText={(enteredValue) => setBIC(enteredValue)}
-                  />
-                </TextInputContainer>
-              </InputContainer>
-              <InputContainer>
-                <TextInputContainer>
-                  <Label>IBAN</Label>
-                  <TextInput_Styled
-                    onChangeText={(enteredValue) => setIBAN(enteredValue)}
-                  />
-                </TextInputContainer>
-              </InputContainer>
-              <SolidGreenButton
-                width={"85%"}
-                height={"13%"}
-                style={{ alignSelf: "center" }}
-                onPress={sendBankDetails}
-              >
-                <Text style={{ color: "white", fontWeight: "700" }}>
-                  Register
-                </Text>
-              </SolidGreenButton>
+              {!bankDetailsExist && (
+                <>
+                  <InputContainer>
+                    <TextInputContainer>
+                      <Label>Bank Name</Label>
+                      <TextInput_Styled
+                        onChangeText={(enteredValue) =>
+                          setBankName(enteredValue)
+                        }
+                      />
+                    </TextInputContainer>
+                  </InputContainer>
+                  <InputContainer>
+                    <TextInputContainer>
+                      <Label>BIC</Label>
+                      <TextInput_Styled
+                        onChangeText={(enteredValue) => setBIC(enteredValue)}
+                      />
+                    </TextInputContainer>
+                  </InputContainer>
+                  <InputContainer>
+                    <TextInputContainer>
+                      <Label>IBAN</Label>
+                      <TextInput_Styled
+                        onChangeText={(enteredValue) => setIBAN(enteredValue)}
+                      />
+                    </TextInputContainer>
+                  </InputContainer>
+                  <SolidGreenButton
+                    width={"85%"}
+                    height={"13%"}
+                    style={{ alignSelf: "center" }}
+                    onPress={sendBankDetails}
+                  >
+                    <Text style={{ color: "white", fontWeight: "700" }}>
+                      Register
+                    </Text>
+                  </SolidGreenButton>
+                </>
+              )}
+              {bankDetailsExist && (
+                <>
+                  <InputContainer>
+                    <TextInputContainer>
+                      <Label>Bank Name</Label>
+                      <TextInput_Styled
+                        editable={false}
+                        value={bankDetails?.bankName}
+                      />
+                    </TextInputContainer>
+                  </InputContainer>
+                  <InputContainer>
+                    <TextInputContainer>
+                      <Label>BIC</Label>
+                      <TextInput_Styled
+                        editable={false}
+                        value={bankDetails?.BIC}
+                      />
+                    </TextInputContainer>
+                  </InputContainer>
+                  <InputContainer>
+                    <TextInputContainer>
+                      <Label>IBAN</Label>
+                      <TextInput_Styled
+                        editable={false}
+                        value={bankDetails?.IBAN}
+                      />
+                    </TextInputContainer>
+                  </InputContainer>
+                </>
+              )}
             </StyledScrollView>
           </ScrollViewContainer>
         </WhiteRoundedContainer>
