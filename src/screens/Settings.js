@@ -28,7 +28,7 @@ const Settings = ({ navigation }) => {
     >
       <View style={{ width: width, height: "100%" }}>
         <HeaderTwoButtons>
-          <BackButton>
+          <BackButton onPress={() => navigation.navigate("Home")}>
             <Ionicons name="md-arrow-back" size={25} color="white" />
           </BackButton>
           <TextInput

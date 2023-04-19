@@ -22,12 +22,12 @@ import {
 <Ionicons name="md-arrow-back" size={25} color="white" />;
 import { Ionicons } from "@expo/vector-icons";
 import { responsiveFontSize } from "../../helperFunction";
-const Refund = () => {
+const Refund = ({ navigation }) => {
   return (
     <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-399}>
       <PageContainer>
         <Header>
-          <BackButton>
+          <BackButton onPress={() => navigation.navigate("Payment")}>
             <Ionicons name="md-arrow-back" size={25} color="white" />
           </BackButton>
         </Header>

@@ -18,7 +18,7 @@ import {
   WhiteRoundedContainer,
 } from "../../styledComponents";
 
-const Payment = () => {
+const Payment = ({ navigation }) => {
   return (
     <PageContainer>
       <Header>
@@ -32,18 +32,27 @@ const Payment = () => {
             <Text style={styles.screenName}>Payment</Text>
             <View style={styles.optionsContainer}>
               <View style={styles.optionLine1Horizontal1}>
-                <TouchableOpacity style={styles.quickSale}>
+                <TouchableOpacity
+                  style={styles.quickSale}
+                  onPress={() => navigation.navigate("QuickSale")}
+                >
                   <Image source={require("../../images/quickSale.png")} />
                   <Text style={styles.quickSaleText}>Quick Sale</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.refund}>
+                <TouchableOpacity
+                  style={styles.refund}
+                  onPress={() => navigation.navigate("Refund")}
+                >
                   <Image source={require("../../images/refund.png")} />
                   <Text style={styles.refundText}>Refund</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.optionLine1Horizontal2}>
-                <TouchableOpacity style={styles.paymentLogs}>
+                <TouchableOpacity
+                  style={styles.paymentLogs}
+                  onPress={() => navigation.navigate("PaymentLogs")}
+                >
                   <Image source={require("../../images/paymentLogs.png")} />
                   <Text style={styles.paymentLogsText}>Payment Logs</Text>
                 </TouchableOpacity>

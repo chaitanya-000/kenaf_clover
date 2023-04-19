@@ -18,11 +18,11 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { responsiveFontSize } from "../../helperFunction";
 
-const PaymentLogs = () => {
+const PaymentLogs = ({ navigation }) => {
   return (
     <PageContainer>
       <Header>
-        <BackButton>
+        <BackButton onPress={() => navigation.navigate("Payment")}>
           <Ionicons name="md-arrow-back" size={25} color="white" />
         </BackButton>
       </Header>
