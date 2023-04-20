@@ -1,4 +1,5 @@
 import {
+  Alert,
   KeyboardAvoidingView,
   StyleSheet,
   Text,
@@ -6,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import {
   BackButton,
   SolidGreenButton,
@@ -17,9 +18,41 @@ import {
   OutlinedGreenButton,
 } from "../../styledComponents";
 import { Ionicons } from "@expo/vector-icons";
-import { responsiveFontSize } from "../../helperFunction";
+import { BASE_URL, responsiveFontSize } from "../../helperFunction";
+import axios from "axios";
 
 const QuickSale = ({ navigation }) => {
+  const [amount, setAmount] = useState(0);
+
+  const sendPaymentInputInfo = () => {
+    axios
+      .post(`${BASE_URL}/stripePost`, {
+        // number: "4000000000009995",
+        number: "4242424242424242",
+        exp_month: "12",
+        exp_year: "2034",
+        cvc: "123",
+        amount: amount * 100,
+        description: "This is test transaction 1",
+        tId: "till_375232076",
+      })
+      .then((response) => {
+        console.log(response);
+        console.log(response.status);
+        if (response.status === 201) {
+          Alert.alert(response.data[0], "", [
+            {
+              text: "OK",
+              onPress: () => navigation.navigate("PaymentDetails_Receipt"),
+            },
+          ]);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        Alert.alert(error.response.data.message);
+      });
+  };
   return (
     <KeyboardAvoidingView behavior="height">
       <PageContainer>
@@ -38,6 +71,7 @@ const QuickSale = ({ navigation }) => {
                   <TextInput
                     style={styles.textInput}
                     keyboardType="number-pad"
+                    onChangeText={(enteredAmount) => setAmount(enteredAmount)}
                   />
                 </View>
                 <View style={styles.buttonsContainer}>
@@ -46,7 +80,11 @@ const QuickSale = ({ navigation }) => {
                       Cash
                     </Text>
                   </SolidGreenButton>
-                  <OutlinedGreenButton height={"50%"} width={"40%"}>
+                  <OutlinedGreenButton
+                    height={"50%"}
+                    width={"40%"}
+                    onPress={sendPaymentInputInfo}
+                  >
                     <Text style={{ color: "#26AE60", fontWeight: "700" }}>
                       Card
                     </Text>
