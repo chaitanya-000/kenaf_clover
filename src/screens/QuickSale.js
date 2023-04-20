@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BackButton,
   SolidGreenButton,
@@ -20,21 +20,22 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { BASE_URL, responsiveFontSize } from "../../helperFunction";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const QuickSale = ({ navigation }) => {
   const [amount, setAmount] = useState(0);
+  const [tID, setTID] = useState(null);
 
   const sendPaymentInputInfo = () => {
     axios
       .post(`${BASE_URL}/stripePost`, {
-        // number: "4000000000009995",
         number: "4242424242424242",
         exp_month: "12",
         exp_year: "2034",
         cvc: "123",
         amount: amount * 100,
         description: "This is test transaction 1",
-        tId: "till_375232076",
+        tId: JSON.parse(tID),
       })
       .then((response) => {
         console.log(response);
@@ -53,6 +54,20 @@ const QuickSale = ({ navigation }) => {
         Alert.alert(error.response.data.message);
       });
   };
+
+  useEffect(() => {
+    const getTillId = async () => {
+      try {
+        const value = await AsyncStorage.getItem("tID");
+        if (value !== null) {
+          setTID(value);
+        }
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+    getTillId();
+  }, [tID]);
   return (
     <KeyboardAvoidingView behavior="height">
       <PageContainer>
