@@ -22,7 +22,7 @@ import Receipt from "./Receipt";
 const PaymentDetails_Receipt = ({ navigation }) => {
   const [paymentDetails, setPaymentDetails] = useState(null);
   const [showInvoice, setShowInvoice] = useState(false);
-  const [tId, setTid] = useState(null);
+  const [receivedData, setReceivedData] = useState(null);
 
   const date = new Date(paymentDetails?.created_at);
   const formattedDate = date.toLocaleDateString("en-US", {
@@ -42,7 +42,6 @@ const PaymentDetails_Receipt = ({ navigation }) => {
       try {
         const value = await AsyncStorage.getItem("tID");
         if (value !== null) {
-          setTid(value);
           axios
             .post(`${BASE_URL}/TransactionSuccess`, {
               tId: JSON.parse(value),
@@ -50,6 +49,18 @@ const PaymentDetails_Receipt = ({ navigation }) => {
             .then((response) => {
               console.log(response.data.data);
               setPaymentDetails(response.data.data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
+          axios
+            .post(`${BASE_URL}/TransactionReceipt`, {
+              tId: JSON.parse(value),
+            })
+            .then((response) => {
+              setReceivedData(response.data);
+              console.log(response.data);
             })
             .catch((error) => {
               console.log(error);
@@ -144,7 +155,9 @@ const PaymentDetails_Receipt = ({ navigation }) => {
           </PageContent>
         </WhiteRoundedContainer>
       </PageContainer>
-      {showInvoice && <Receipt setShowInvoice={setShowInvoice} tId={tId} />}
+      {showInvoice && (
+        <Receipt setShowInvoice={setShowInvoice} receivedData={receivedData} />
+      )}
     </>
   );
 };

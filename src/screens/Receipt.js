@@ -6,27 +6,8 @@ import axios from "axios";
 import { captureRef } from "react-native-view-shot";
 import { ButtonText, SolidGreenButton } from "../../styledComponents";
 
-const Receipt = ({ setShowInvoice, tId }) => {
-  const [receivedData, setReceivedData] = useState(null);
+const Receipt = ({ setShowInvoice, receivedData }) => {
   const imageRef = useRef();
-
-  const getTransactionDetails = () => {
-    axios
-      .post(`${BASE_URL}/TransactionReceipt`, {
-        tId: JSON.parse(tId),
-      })
-      .then((response) => {
-        setReceivedData(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    getTransactionDetails();
-  }, [receivedData]);
 
   return (
     <View style={styles.parentContainer}>
