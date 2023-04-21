@@ -23,6 +23,7 @@ const PaymentDetails_Receipt = ({ navigation }) => {
   const [paymentDetails, setPaymentDetails] = useState(null);
   const [showInvoice, setShowInvoice] = useState(false);
   const [receivedData, setReceivedData] = useState(null);
+  const [tId, setTid] = useState(null);
 
   const date = new Date(paymentDetails?.created_at);
   const formattedDate = date.toLocaleDateString("en-US", {
@@ -42,6 +43,8 @@ const PaymentDetails_Receipt = ({ navigation }) => {
       try {
         const value = await AsyncStorage.getItem("tID");
         if (value !== null) {
+          console.log(value);
+          setTid(value);
           axios
             .post(`${BASE_URL}/TransactionSuccess`, {
               tId: JSON.parse(value),
@@ -156,7 +159,11 @@ const PaymentDetails_Receipt = ({ navigation }) => {
         </WhiteRoundedContainer>
       </PageContainer>
       {showInvoice && (
-        <Receipt setShowInvoice={setShowInvoice} receivedData={receivedData} />
+        <Receipt
+          setShowInvoice={setShowInvoice}
+          receivedData={receivedData}
+          tId={tId}
+        />
       )}
     </>
   );

@@ -1,13 +1,41 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
-import { BASE_URL } from "../../helperFunction";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+import React, { useRef } from "react";
 import { captureRef } from "react-native-view-shot";
 import { ButtonText, SolidGreenButton } from "../../styledComponents";
 
-const Receipt = ({ setShowInvoice, receivedData }) => {
+const Receipt = ({ setShowInvoice, receivedData, tId }) => {
   const imageRef = useRef();
+
+  const handleScreenShot = () => {
+    captureRef(imageRef, {
+      format: "png",
+      quality: 0.2,
+    }).then((uri) => {
+      console.log(uri);
+      const formData = new FormData();
+      formData.append("tID", JSON.parse(tId));
+      formData.append("Invoice", {
+        uri: uri,
+        type: "image/png",
+        name: "receipt.png",
+      });
+      fetch("https://kenaf.ie/QRCounter", {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Accept: "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  };
 
   return (
     <View style={styles.parentContainer}>
@@ -61,22 +89,7 @@ const Receipt = ({ setShowInvoice, receivedData }) => {
             { alignSelf: "center", marginTop: "4%", marginBottom: "4%" })
           }
         >
-          <Text
-            onPress={() => {
-              captureRef(imageRef, {
-                format: "png",
-                quality: 0.2,
-              })
-                .then((uri) => {
-                  console.log(uri);
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
-            }}
-          >
-            Thank you! Have a nice day{" "}
-          </Text>
+          <Text>Thank you! Have a nice day </Text>
         </View>
       </View>
       <View style={styles.buttonContainer}>
@@ -84,6 +97,7 @@ const Receipt = ({ setShowInvoice, receivedData }) => {
           width={"80%"}
           height={"40%"}
           style={{ alignSelf: "center" }}
+          onPress={handleScreenShot}
         >
           <ButtonText>Ok</ButtonText>
         </SolidGreenButton>
