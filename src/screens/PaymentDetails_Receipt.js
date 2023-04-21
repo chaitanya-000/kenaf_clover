@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BackButton,
   ButtonText,
@@ -17,9 +17,12 @@ import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { BASE_URL } from "../../helperFunction";
+import Receipt from "./Receipt";
 
 const PaymentDetails_Receipt = ({ navigation }) => {
   const [paymentDetails, setPaymentDetails] = useState(null);
+  const [showInvoice, setShowInvoice] = useState(false);
+  const [tId, setTid] = useState(null);
 
   const date = new Date(paymentDetails?.created_at);
   const formattedDate = date.toLocaleDateString("en-US", {
@@ -39,6 +42,7 @@ const PaymentDetails_Receipt = ({ navigation }) => {
       try {
         const value = await AsyncStorage.getItem("tID");
         if (value !== null) {
+          setTid(value);
           axios
             .post(`${BASE_URL}/TransactionSuccess`, {
               tId: JSON.parse(value),
@@ -59,80 +63,89 @@ const PaymentDetails_Receipt = ({ navigation }) => {
   }, []);
 
   return (
-    <PageContainer>
-      <Header>
-        <BackButton onPress={() => navigation.navigate("DrawerNavigation")}>
-          <Ionicons name="md-arrow-back" size={25} color="white" />
-        </BackButton>
-      </Header>
-      <WhiteRoundedContainer>
-        <PageContent>
-          <View style={styles.amountAndPaymentStatusContainer}>
-            <Text style={styles.amount}>€ {paymentDetails?.Amount / 100}</Text>
-            <Text style={styles.paymentStatus}>
-              {paymentDetails?.description}
-            </Text>
-          </View>
-          <View style={styles.dateAndTimeContainer}>
-            <Text style={styles.dateAndTime}>{formattedDate}</Text>
-            <View style={styles.separatingDot}></View>
-            <Text style={styles.dateAndTime}>{formattedTime}</Text>
-          </View>
-          <View style={styles.detailsReceipt}>
-            <View style={styles.infoContainer}>
-              <Text>Amount</Text>
-              <Text>€ {paymentDetails?.Amount / 100}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text>Card Type</Text>
-              <Text>{paymentDetails?.cardType}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text>Card </Text>
-              <Text>{paymentDetails?.cardDetails}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text>Till ID</Text>
-              <Text>{paymentDetails?.tId}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text>Trs ID</Text>
-              <Text>{paymentDetails?.transactionId}</Text>
-            </View>
-            <View
-              style={{
-                width: "100%",
-                borderWidth: 0.5,
-                borderColor: "#DEE8EF",
-              }}
-            ></View>
-            <View style={[styles.infoContainer, { marginTop: 10 }]}>
-              <Text style={{ fontSize: 20 }}>Amount</Text>
-              <Text
-                style={{
-                  fontSize: 20,
-                  fontWeight: "700",
-                  color: "rgba(38, 174, 96, 1)",
-                }}
-              >
+    <>
+      <PageContainer>
+        <Header>
+          <BackButton onPress={() => navigation.navigate("DrawerNavigation")}>
+            <Ionicons name="md-arrow-back" size={25} color="white" />
+          </BackButton>
+        </Header>
+        <WhiteRoundedContainer style={{ opacity: showInvoice ? 0.1 : 1 }}>
+          <PageContent>
+            <View style={styles.amountAndPaymentStatusContainer}>
+              <Text style={styles.amount}>
                 € {paymentDetails?.Amount / 100}
               </Text>
+              <Text style={styles.paymentStatus}>
+                {paymentDetails?.description}
+              </Text>
             </View>
-          </View>
-          <SolidGreenButton width={"100%"} height={"11%"}>
-            <ButtonText>Print to QR code</ButtonText>
-          </SolidGreenButton>
-          <LineDivider>
-            <HalfPart></HalfPart>
-            <LineDividerText_OR>OR</LineDividerText_OR>
-            <HalfPart></HalfPart>
-          </LineDivider>
-          <TouchableOpacity>
-            <InformativeFooterText>Print Receipt</InformativeFooterText>
-          </TouchableOpacity>
-        </PageContent>
-      </WhiteRoundedContainer>
-    </PageContainer>
+            <View style={styles.dateAndTimeContainer}>
+              <Text style={styles.dateAndTime}>{formattedDate}</Text>
+              <View style={styles.separatingDot}></View>
+              <Text style={styles.dateAndTime}>{formattedTime}</Text>
+            </View>
+            <View style={styles.detailsReceipt}>
+              <View style={styles.infoContainer}>
+                <Text>Amount</Text>
+                <Text>€ {paymentDetails?.Amount / 100}</Text>
+              </View>
+              <View style={styles.infoContainer}>
+                <Text>Card Type</Text>
+                <Text>{paymentDetails?.cardType}</Text>
+              </View>
+              <View style={styles.infoContainer}>
+                <Text>Card </Text>
+                <Text>{paymentDetails?.cardDetails}</Text>
+              </View>
+              <View style={styles.infoContainer}>
+                <Text>Till ID</Text>
+                <Text>{paymentDetails?.tId}</Text>
+              </View>
+              <View style={styles.infoContainer}>
+                <Text>Trs ID</Text>
+                <Text>{paymentDetails?.transactionId}</Text>
+              </View>
+              <View
+                style={{
+                  width: "100%",
+                  borderWidth: 0.5,
+                  borderColor: "#DEE8EF",
+                }}
+              ></View>
+              <View style={[styles.infoContainer, { marginTop: 10 }]}>
+                <Text style={{ fontSize: 20 }}>Amount</Text>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "700",
+                    color: "rgba(38, 174, 96, 1)",
+                  }}
+                >
+                  € {paymentDetails?.Amount / 100}
+                </Text>
+              </View>
+            </View>
+            <SolidGreenButton
+              width={"100%"}
+              height={"11%"}
+              onPress={() => setShowInvoice(true)}
+            >
+              <ButtonText>Print to QR code</ButtonText>
+            </SolidGreenButton>
+            <LineDivider>
+              <HalfPart></HalfPart>
+              <LineDividerText_OR>OR</LineDividerText_OR>
+              <HalfPart></HalfPart>
+            </LineDivider>
+            <TouchableOpacity>
+              <InformativeFooterText>Print Receipt</InformativeFooterText>
+            </TouchableOpacity>
+          </PageContent>
+        </WhiteRoundedContainer>
+      </PageContainer>
+      {showInvoice && <Receipt setShowInvoice={setShowInvoice} tId={tId} />}
+    </>
   );
 };
 
