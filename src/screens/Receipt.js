@@ -5,7 +5,7 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   BackButton,
   Header,
@@ -18,9 +18,11 @@ import { Ionicons } from "@expo/vector-icons";
 import { BASE_URL, responsiveFontSize } from "../../helperFunction";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { captureRef } from "react-native-view-shot";
 
 const Receipt = () => {
   const [receivedData, setReceivedData] = useState(null);
+  const imageRef = useRef();
   useEffect(() => {
     const getTillId = async () => {
       try {
@@ -52,7 +54,7 @@ const Receipt = () => {
             <Ionicons name="md-arrow-back" size={25} color="white" />
           </BackButton>
         </Header>
-        <WhiteRoundedContainer>
+        <WhiteRoundedContainer ref={imageRef}>
           <PageContent>
             <View style={styles.container}>
               <View style={styles.receiptHeader}>
@@ -113,7 +115,22 @@ const Receipt = () => {
                   { alignSelf: "center", marginTop: "4%" })
                 }
               >
-                <Text>Thank you! Have a nice day </Text>
+                <Text
+                  onPress={() => {
+                    captureRef(imageRef, {
+                      format: "png",
+                      quality: 0.2,
+                    })
+                      .then((uri) => {
+                        console.log(uri);
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
+                  }}
+                >
+                  Thank you! Have a nice day{" "}
+                </Text>
               </View>
             </View>
           </PageContent>
