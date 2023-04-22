@@ -68,8 +68,13 @@ const QuickSale = ({ navigation }) => {
         if (value !== null) {
           console.log(value);
           setTID(value);
-        } else if (!value) {
-          Alert.alert("bla bla bla");
+        } else {
+          Alert.alert("Link the till first", "", [
+            {
+              text: "Ok",
+              onPress: () => navigation.navigate("Links"),
+            },
+          ]);
         }
       } catch (e) {
         console.log(e.message);
