@@ -21,12 +21,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { BASE_URL, responsiveFontSize } from "../../helperFunction";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import LoadingSpinner from "../organisms/LoadingSpinner";
 
 const QuickSale = ({ navigation }) => {
   const [amount, setAmount] = useState(0);
   const [tID, setTID] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const sendPaymentInputInfo = () => {
+    setLoading(true);
     axios
       .post(`${BASE_URL}/stripePost`, {
         number: "4242424242424242",
@@ -52,6 +55,9 @@ const QuickSale = ({ navigation }) => {
       .catch((error) => {
         console.log(error);
         Alert.alert(error.response.data.message);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -60,7 +66,10 @@ const QuickSale = ({ navigation }) => {
       try {
         const value = await AsyncStorage.getItem("tID");
         if (value !== null) {
+          console.log(value);
           setTID(value);
+        } else if (!value) {
+          Alert.alert("bla bla bla");
         }
       } catch (e) {
         console.log(e.message);
@@ -70,6 +79,7 @@ const QuickSale = ({ navigation }) => {
   }, [tID]);
   return (
     <KeyboardAvoidingView behavior="height">
+      {loading && <LoadingSpinner loading={loading} />}
       <PageContainer>
         <Header>
           <BackButton onPress={() => navigation.navigate("Payment")}>
