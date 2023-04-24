@@ -14,6 +14,7 @@ const TabsNavigation = () => {
 
   return (
     <Tab.Navigator
+      initialRouteName="Payment"
       screenOptions={{
         headerShown: false,
         activeTintColor: "red",
