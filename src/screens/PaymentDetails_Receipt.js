@@ -121,11 +121,17 @@ const PaymentDetails_Receipt = ({ navigation }) => {
               </View>
               <View
                 style={
-                  ([styles.infoContainer], { borderWidth: 1, width: "100%" })
+                  ([styles.infoContainer],
+                  {
+                    // borderWidth: 1,
+                    width: "90%",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  })
                 }
               >
-                <Text style={{ borderWidth: 1, width: "40%" }}>Trs ID</Text>
-                <Text style={{ borderWidth: 1, width: "40%" }}>
+                <Text style={{ width: "20%" }}>Trs ID</Text>
+                <Text style={{ width: "60%" }}>
                   {paymentDetails?.transactionId}
                 </Text>
               </View>
@@ -134,9 +140,10 @@ const PaymentDetails_Receipt = ({ navigation }) => {
                   width: "100%",
                   borderWidth: 0.5,
                   borderColor: "#DEE8EF",
+                  marginTop: 10,
                 }}
               ></View>
-              <View style={[styles.infoContainer, { marginTop: 10 }]}>
+              <View style={[styles.infoContainer, { marginTop: 6 }]}>
                 <Text style={{ fontSize: 20 }}>Amount</Text>
                 <Text
                   style={{
@@ -225,7 +232,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     borderColor: "#DEE8EF",
-    marginBottom: "10%",
+    marginBottom: "5%",
     padding: "3%",
     alignItems: "center",
   },
