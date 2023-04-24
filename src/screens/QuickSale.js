@@ -61,6 +61,31 @@ const QuickSale = ({ navigation }) => {
       });
   };
 
+  const sendCashPaymentInfo = () => {
+    setLoading(true);
+    axios
+      .post(`${BASE_URL}/PaymentCash`, {
+        tId: JSON.parse(tID),
+        Amount: amount * 100,
+      })
+      .then((response) => {
+        console.log(response.data.message);
+        response.data.data &&
+          Alert.alert(response.data.message, "", [
+            {
+              text: "OK",
+              onPress: () => navigation.navigate("PaymentDetails_Receipt"),
+            },
+          ]);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   useEffect(() => {
     const getTillId = async () => {
       try {
@@ -105,7 +130,11 @@ const QuickSale = ({ navigation }) => {
                   />
                 </View>
                 <View style={styles.buttonsContainer}>
-                  <SolidGreenButton height={"50%"} width={"40%"}>
+                  <SolidGreenButton
+                    height={"50%"}
+                    width={"40%"}
+                    onPress={sendCashPaymentInfo}
+                  >
                     <Text style={{ color: "white", fontWeight: "700" }}>
                       Cash
                     </Text>

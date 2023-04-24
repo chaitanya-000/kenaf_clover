@@ -3,8 +3,15 @@ import React, { useRef } from "react";
 import { captureRef } from "react-native-view-shot";
 import { ButtonText, SolidGreenButton } from "../../styledComponents";
 import SvgQRCode from "react-native-qrcode-svg";
+import { Alert } from "react-native";
 
-const Receipt = ({ setShowInvoice, receivedData, tId, transactionId }) => {
+const Receipt = ({
+  setShowInvoice,
+  receivedData,
+  tId,
+  transactionId,
+  navigation,
+}) => {
   const imageRef = useRef();
 
   const handleScreenShot = () => {
@@ -30,7 +37,13 @@ const Receipt = ({ setShowInvoice, receivedData, tId, transactionId }) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          console.log(data.data);
+          Alert.alert(data.data, "", [
+            {
+              text: "OK",
+              onPress: () => navigation.navigate("QuickSale"),
+            },
+          ]);
         })
         .catch((error) => {
           console.log(error);
@@ -85,7 +98,9 @@ const Receipt = ({ setShowInvoice, receivedData, tId, transactionId }) => {
             { alignSelf: "center", marginTop: "2%", marginBottom: "5%" })
           }
         >
-          <Text>Paid with card</Text>
+          <Text>
+            Paid with {receivedData ? receivedData.data.cardType : "Loading..."}
+          </Text>
         </View>
         <View style={{ alignSelf: "center" }}>
           <SvgQRCode value={transactionId} size={80} />

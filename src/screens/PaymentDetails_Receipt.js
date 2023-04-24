@@ -167,6 +167,7 @@ const PaymentDetails_Receipt = ({ navigation }) => {
           receivedData={receivedData}
           tId={tId}
           transactionId={transactionId}
+          navigation={navigation}
         />
       )}
     </>
