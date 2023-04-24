@@ -14,7 +14,8 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "1"
+      "buildNumber": "1",
+      "bundleIdentifier": "com.chaitanya_000.kenaf_clover"
     },
     "android": {
       "package": "com.chaitanya_000.kenaf_clover",
