@@ -61,7 +61,6 @@ const CompanyDetails = ({ navigation }) => {
         tID: tillID,
       })
       .then((response) => {
-        // console.log(response);
         Alert.alert(response.data.data, "", [
           {
             text: "Ok",

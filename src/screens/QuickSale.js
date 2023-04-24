@@ -41,8 +41,6 @@ const QuickSale = ({ navigation }) => {
         tId: JSON.parse(tID),
       })
       .then((response) => {
-        console.log(response);
-        console.log(response.status);
         if (response.status === 201) {
           Alert.alert(response.data[0], "", [
             {

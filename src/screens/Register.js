@@ -114,7 +114,6 @@ const Register = ({ navigation }) => {
           zipCode: eircode,
         })
         .then((response) => {
-          console.log(response);
           if (response.data.data) {
             Alert.alert(response.data.data, "", [
               {
