@@ -34,6 +34,7 @@ import City from "../organisms/City";
 import Country from "../organisms/Country";
 import EirCode from "../organisms/EirCode";
 import AddressLine2 from "../organisms/AddressLine2";
+import LoadingSpinner from "../organisms/LoadingSpinner";
 
 const Register = ({ navigation }) => {
   const [firstName, setFirstName] = useState("");
@@ -45,10 +46,10 @@ const Register = ({ navigation }) => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [re_enteredPassword, setRe_enteredPassword] = useState("");
-
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [eircode, setEircode] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [show_AddStoreModal, setShow_AddStoreModal] = useState(false);
   const [orgList, setOrgList] = useState(null);
@@ -98,6 +99,7 @@ const Register = ({ navigation }) => {
       if (password !== re_enteredPassword) {
         throw new Error("Passwords do not match");
       }
+      setLoading(true);
 
       axios
         .post(`${BASE_URL}/cloverAppUserRegister`, {
@@ -125,6 +127,9 @@ const Register = ({ navigation }) => {
         })
         .catch((error) => {
           console.log(error);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     } catch (error) {
       Alert.alert(error.message);
@@ -140,6 +145,8 @@ const Register = ({ navigation }) => {
         style={{ width: width, height: height }}
         behavior="height"
       >
+        {loading && <LoadingSpinner loading={loading} />}
+
         <View
           style={{
             width: width,
