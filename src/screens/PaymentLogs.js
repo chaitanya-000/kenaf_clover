@@ -21,7 +21,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const PaymentLogs = ({ navigation }) => {
-  const [paymentInfo, setPaymentInfo] = useState(null);
+  const [paymentInfo, setPaymentInfo] = useState();
+
   useEffect(() => {
     const getUserId = async () => {
       try {
@@ -33,8 +34,11 @@ const PaymentLogs = ({ navigation }) => {
               tId: JSON.parse(value),
             })
             .then((response) => {
-              console.log(response.data.data);
-              setPaymentInfo(response.data.data);
+              if (response.data.status === "false") {
+                setPaymentInfo(null);
+              } else {
+                setPaymentInfo(response.data.data);
+              }
             })
             .catch((error) => {
               console.log(error);
