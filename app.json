@@ -14,11 +14,10 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "1",
-      "bundleIdentifier": "com.chaitanya_000.kenaf_clover"
+      "buildNumber": "1"
     },
     "android": {
-      "package": "com.chaitanya_000.kenaf_clover",
+      "package": "com.kenaf.clover",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
