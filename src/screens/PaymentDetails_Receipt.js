@@ -119,9 +119,15 @@ const PaymentDetails_Receipt = ({ navigation }) => {
                 <Text>Till ID</Text>
                 <Text>{paymentDetails?.tId}</Text>
               </View>
-              <View style={styles.infoContainer}>
-                <Text>Trs ID</Text>
-                <Text>{paymentDetails?.transactionId}</Text>
+              <View
+                style={
+                  ([styles.infoContainer], { borderWidth: 1, width: "100%" })
+                }
+              >
+                <Text style={{ borderWidth: 1, width: "40%" }}>Trs ID</Text>
+                <Text style={{ borderWidth: 1, width: "40%" }}>
+                  {paymentDetails?.transactionId}
+                </Text>
               </View>
               <View
                 style={{

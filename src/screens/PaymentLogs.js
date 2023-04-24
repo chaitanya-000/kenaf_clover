@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BackButton,
   Header,
@@ -16,9 +16,37 @@ import {
   WhiteRoundedContainer,
 } from "../../styledComponents";
 import { Ionicons } from "@expo/vector-icons";
-import { responsiveFontSize } from "../../helperFunction";
+import { BASE_URL, responsiveFontSize } from "../../helperFunction";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 const PaymentLogs = ({ navigation }) => {
+  const [paymentInfo, setPaymentInfo] = useState(null);
+  useEffect(() => {
+    const getUserId = async () => {
+      try {
+        const value = await AsyncStorage.getItem("tID");
+        if (value !== null) {
+          console.log(JSON.parse(value));
+          axios
+            .post(`${BASE_URL}/PaymentLogs`, {
+              tId: JSON.parse(value),
+            })
+            .then((response) => {
+              console.log(response.data.data);
+              setPaymentInfo(response.data.data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    getUserId();
+  }, []);
   return (
     <PageContainer>
       <Header>
@@ -33,34 +61,59 @@ const PaymentLogs = ({ navigation }) => {
             style={styles.scrollView}
             contentContainerStyle={styles.scrollViewContentContainer}
           >
-            <TouchableOpacity style={styles.paymentInfoButton}>
-              <View style={styles.transactionTypeIndicatorIcon}>
-                <Image
-                  source={require("../../images/creditedMoney.png")}
-                  resizeMode="contain"
-                  style={{ width: "100%", height: "100%" }}
-                />
-              </View>
-              <View style={styles.transactionIdAndDate}>
-                <Text style={{ fontWeight: "600", fontSize: 17 }}>
-                  #723939230
-                </Text>
-                <Text style={{ color: "rgba(130, 130, 130, 1)", fontSize: 12 }}>
-                  23 July 2022, 2:25 PM
-                </Text>
-              </View>
-              <View style={styles.debitCardAndAmount}>
-                <Text style={{ fontSize: responsiveFontSize(4) }}>
-                  Debit Card
-                </Text>
-                <Text style={{ fontWeight: "600" }}>$1:00</Text>
-              </View>
-            </TouchableOpacity>
+            {paymentInfo &&
+              paymentInfo.map((eachObj) => {
+                const date = new Date(eachObj?.created_at);
+                const formattedDate = date.toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                });
+
+                const formattedTime = date.toLocaleTimeString("en-US", {
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true,
+                });
+                return (
+                  <TouchableOpacity style={styles.paymentInfoButton}>
+                    <View style={styles.transactionTypeIndicatorIcon}>
+                      <Image
+                        source={require("../../images/creditedMoney.png")}
+                        resizeMode="contain"
+                        style={{ width: "100%", height: "100%" }}
+                      />
+                    </View>
+                    <View style={styles.transactionIdAndDate}>
+                      <Text style={{ fontWeight: "600", fontSize: 15 }}>
+                        #{eachObj.transactionNo}
+                      </Text>
+                      <Text
+                        style={{
+                          color: "rgba(130, 130, 130, 1)",
+                          fontSize: 13,
+                          // marginTop: 15,
+                        }}
+                      >
+                        {formattedDate} {formattedTime}
+                      </Text>
+                    </View>
+                    <View style={styles.debitCardAndAmount}>
+                      <Text style={{ fontSize: responsiveFontSize(4) }}>
+                        {eachObj.cardType}
+                      </Text>
+                      <Text style={{ fontWeight: "600" }}>
+                        € {eachObj.Amount / 100}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
           </ScrollView>
         </View>
         <SolidGreenButton
           width={"85%"}
-          height={"8%"}
+          height={"10%"}
           style={{ marginTop: "7%" }}
         >
           <Text style={{ color: "white", fontWeight: "700" }}>Okay</Text>
@@ -107,7 +160,7 @@ const styles = StyleSheet.create({
   },
   transactionIdAndDate: {
     width: "55%",
-    height: "90%",
+    height: "100%",
     // borderWidth: 1,
     alignItems: "center",
     justifyContent: "space-between",
