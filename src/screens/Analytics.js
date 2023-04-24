@@ -14,11 +14,7 @@ import { responsiveFontSize } from "../../helperFunction";
 const Analytics = () => {
   return (
     <PageContainer>
-      <Header>
-        <BackButton>
-          <Ionicons name="md-arrow-back" size={25} color="white" />
-        </BackButton>
-      </Header>
+      <Header></Header>
       <WhiteRoundedContainer>
         <PageContent>
           <View style={styles.container}>
