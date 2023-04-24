@@ -41,7 +41,7 @@ const Receipt = ({
           Alert.alert(data.data, "", [
             {
               text: "OK",
-              onPress: () => navigation.navigate("QuickSale"),
+              onPress: () => navigation.navigate("Home"),
             },
           ]);
         })
