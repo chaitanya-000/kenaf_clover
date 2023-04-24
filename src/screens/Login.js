@@ -36,8 +36,6 @@ const Login = ({ navigation }) => {
   const [re_enteredPassword, setRe_enteredPassword] = useState("");
   const loading = useStore(useAuthStore, (state) => state.loading);
 
-  // const [loading, setLoading] = useState(false);
-
   const login = useStore(useAuthStore, (state) => state.login);
   async function handleLogin() {
     await login(email, password, re_enteredPassword);

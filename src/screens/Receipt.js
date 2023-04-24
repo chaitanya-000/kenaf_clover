@@ -2,8 +2,9 @@ import { StyleSheet, Text, View } from "react-native";
 import React, { useRef } from "react";
 import { captureRef } from "react-native-view-shot";
 import { ButtonText, SolidGreenButton } from "../../styledComponents";
+import SvgQRCode from "react-native-qrcode-svg";
 
-const Receipt = ({ setShowInvoice, receivedData, tId }) => {
+const Receipt = ({ setShowInvoice, receivedData, tId, transactionId }) => {
   const imageRef = useRef();
 
   const handleScreenShot = () => {
@@ -78,11 +79,17 @@ const Receipt = ({ setShowInvoice, receivedData, tId }) => {
             <Text>00.00</Text>
           </View>
         </View>
-        <View style={styles.receiptHorizontalContainer}>
+        <View
+          style={
+            ([styles.receiptHorizontalContainer],
+            { alignSelf: "center", marginTop: "2%", marginBottom: "5%" })
+          }
+        >
           <Text>Paid with card</Text>
         </View>
-        <View style={{ borderWidth: 0.3 }}></View>
-
+        <View style={{ alignSelf: "center" }}>
+          <SvgQRCode value={transactionId} size={80} />
+        </View>
         <View
           style={
             ([styles.receiptHorizontalContainer],
@@ -94,20 +101,20 @@ const Receipt = ({ setShowInvoice, receivedData, tId }) => {
       </View>
       <View style={styles.buttonContainer}>
         <SolidGreenButton
-          width={"80%"}
-          height={"40%"}
+          width={"40%"}
+          height={"80%"}
+          style={{ alignSelf: "center", backgroundColor: "red" }}
+          onPress={() => setShowInvoice(false)}
+        >
+          <ButtonText>Cancel</ButtonText>
+        </SolidGreenButton>
+        <SolidGreenButton
+          width={"40%"}
+          height={"80%"}
           style={{ alignSelf: "center" }}
           onPress={handleScreenShot}
         >
           <ButtonText>Ok</ButtonText>
-        </SolidGreenButton>
-        <SolidGreenButton
-          width={"80%"}
-          height={"40%"}
-          style={{ alignSelf: "center" }}
-          onPress={() => setShowInvoice(false)}
-        >
-          <ButtonText>Cancel</ButtonText>
         </SolidGreenButton>
       </View>
     </View>
@@ -119,23 +126,23 @@ export default Receipt;
 const styles = StyleSheet.create({
   parentContainer: {
     width: "85%",
-    height: "90%",
+    height: "94%",
     paddingHorizontal: "2%",
     alignSelf: "center",
     marginTop: "6%",
     borderRadius: 30,
     zIndex: 9999,
-    backgroundColor: "white",
+    // backgroundColor: "white",
     position: "absolute",
     justifyContent: "space-around",
   },
   container: {
     width: "100%",
-    height: "75%",
+    height: "85%",
     paddingHorizontal: "7%",
     borderWidth: 1,
     alignSelf: "center",
-    // marginTop: "1%",
+    marginTop: "10%",
     borderRadius: 30,
     backgroundColor: "#F6F8FA",
     borderColor: "#DEE8EF",
@@ -182,9 +189,11 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: "100%",
-    height: "18%",
+    height: "10%",
+    flexDirection: "row",
     justifyContent: "space-around",
-    marginBottom: "5%",
+    // marginBottom: "5%",
+    marginTop: "10%",
     // borderWidth: 1,
   },
 });

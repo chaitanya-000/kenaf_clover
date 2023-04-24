@@ -24,6 +24,7 @@ const PaymentDetails_Receipt = ({ navigation }) => {
   const [showInvoice, setShowInvoice] = useState(false);
   const [receivedData, setReceivedData] = useState(null);
   const [tId, setTid] = useState(null);
+  const [transactionId, setTransactionId] = useState(null);
 
   const date = new Date(paymentDetails?.created_at);
   const formattedDate = date.toLocaleDateString("en-US", {
@@ -50,8 +51,10 @@ const PaymentDetails_Receipt = ({ navigation }) => {
               tId: JSON.parse(value),
             })
             .then((response) => {
-              console.log(response.data.data);
+              console.log("Transaction Id-", response.data.data.transactionId);
+
               setPaymentDetails(response.data.data);
+              setTransactionId(response.data.data.transactionId);
             })
             .catch((error) => {
               console.log(error);
@@ -163,6 +166,7 @@ const PaymentDetails_Receipt = ({ navigation }) => {
           setShowInvoice={setShowInvoice}
           receivedData={receivedData}
           tId={tId}
+          transactionId={transactionId}
         />
       )}
     </>
