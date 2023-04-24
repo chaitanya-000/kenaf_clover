@@ -50,7 +50,7 @@ const DrawerNavigation = (props) => {
         headerShown: false,
       }}
       drawerStyle={styles.drawer}
-      initialRouteName="Links"
+      initialRouteName="Home"
     >
       <Drawer.Screen
         name="Home"

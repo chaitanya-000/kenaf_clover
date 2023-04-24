@@ -34,6 +34,7 @@ const PaymentLogs = ({ navigation }) => {
               tId: JSON.parse(value),
             })
             .then((response) => {
+              console.log(response);
               if (response.data.status === "false") {
                 setPaymentInfo(null);
               } else {
@@ -80,7 +81,10 @@ const PaymentLogs = ({ navigation }) => {
                   hour12: true,
                 });
                 return (
-                  <TouchableOpacity style={styles.paymentInfoButton}>
+                  <TouchableOpacity
+                    style={styles.paymentInfoButton}
+                    key={eachObj.id}
+                  >
                     <View style={styles.transactionTypeIndicatorIcon}>
                       <Image
                         source={require("../../images/creditedMoney.png")}

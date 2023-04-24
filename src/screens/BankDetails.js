@@ -65,17 +65,6 @@ const BankDetails = ({ navigation }) => {
     }
   };
 
-  //   const getUserId = async () => {
-  //     try {
-  //       const value = await AsyncStorage.getItem("uId");
-  //       if (value !== null) {
-  //         setUid(value);
-  //       }
-  //     } catch (e) {
-  //       console.log(e.message);
-  //     }
-  //   };value={bank}
-
   const getBankDetails = (uId) => {
     axios
       .post(`${BASE_URL}/RetailBankAccountInfo`, {

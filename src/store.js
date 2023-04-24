@@ -58,7 +58,6 @@ const useAuthStore = create((set) => ({
     try {
       const value = await AsyncStorage.getItem("token");
       if (value !== null) {
-        console.log(value);
         set({ hasToken: true });
       }
     } catch (e) {

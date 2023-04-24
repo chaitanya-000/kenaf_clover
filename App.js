@@ -7,15 +7,13 @@ import Login from "./src/screens/Login";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import DrawerNavigation from "./src/DrawerNavigation";
-import CompanyDetails from "./src/screens/CompanyDetails";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useStore } from "zustand";
 import useAuthStore from "./src/store";
-import { Image, View } from "react-native";
-import { height, width } from "./helperFunction";
 import BankDetails from "./src/screens/BankDetails";
 import ProfileUpdate from "./src/screens/ProfileUpdate";
 import Refund from "./src/screens/Refund";
+import Receipt from "./src/screens/Receipt";
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +56,8 @@ function App() {
         )}
       </Stack.Navigator>
     </NavigationContainer>
+    // <PaymentDetails_Receipt />
+    // <Receipt />
   );
 }
 
