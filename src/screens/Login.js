@@ -1,5 +1,4 @@
 import {
-  Alert,
   Image,
   KeyboardAvoidingView,
   StyleSheet,
@@ -9,24 +8,17 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import {
-  BackButton,
   SolidGreenButton,
   WhiteRoundedContainer,
-  OptionsButton,
-  HeaderTwoButtons,
   StyledScrollView,
   ScrollViewContainer,
   ScreenName,
 } from "../../styledComponents";
-import { Ionicons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { height, width } from "../../helperFunction";
-import axios from "axios";
 import EmailAddress from "../organisms/EmailAddress";
 import Password from "../organisms/Password";
 import ReenterPassword from "../organisms/ReenterPassword";
 import LoadingSpinner from "../organisms/LoadingSpinner";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import useAuthStore from "../store";
 import { useStore } from "zustand";
 
