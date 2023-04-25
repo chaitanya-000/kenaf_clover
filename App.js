@@ -14,6 +14,7 @@ import BankDetails from "./src/screens/BankDetails";
 import ProfileUpdate from "./src/screens/ProfileUpdate";
 import Refund from "./src/screens/Refund";
 import Receipt from "./src/screens/Receipt";
+import SamplePageForTesting from "./src/screens/SamplePageForTesting";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,38 +27,37 @@ function App() {
   }, []);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {hasToken ? (
-          <>
-            <Stack.Screen
-              name="DrawerNavigation"
-              component={DrawerNavigation}
-            />
-            <Stack.Screen
-              name="PaymentDetails_Refund"
-              component={PaymentDetails_Refund}
-            />
-            <Stack.Screen
-              name="PaymentDetails_Receipt"
-              component={PaymentDetails_Receipt}
-            />
-            <Stack.Screen name="PaymentLogs" component={PaymentLogs} />
-            <Stack.Screen name="QuickSale" component={QuickSale} />
-            <Stack.Screen name="Refund" component={Refund} />
-            <Stack.Screen name="BankDetails" component={BankDetails} />
-            <Stack.Screen name="ProfileUpdate" component={ProfileUpdate} />
-          </>
-        ) : (
-          <>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Register" component={Register} />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
-    // <PaymentDetails_Receipt />
-    // <Receipt />
+    // <NavigationContainer>
+    //   <Stack.Navigator screenOptions={{ headerShown: false }}>
+    //     {hasToken ? (
+    //       <>
+    //         <Stack.Screen
+    //           name="DrawerNavigation"
+    //           component={DrawerNavigation}
+    //         />
+    //         <Stack.Screen
+    //           name="PaymentDetails_Refund"
+    //           component={PaymentDetails_Refund}
+    //         />
+    //         <Stack.Screen
+    //           name="PaymentDetails_Receipt"
+    //           component={PaymentDetails_Receipt}
+    //         />
+    //         <Stack.Screen name="PaymentLogs" component={PaymentLogs} />
+    //         <Stack.Screen name="QuickSale" component={QuickSale} />
+    //         <Stack.Screen name="Refund" component={Refund} />
+    //         <Stack.Screen name="BankDetails" component={BankDetails} />
+    //         <Stack.Screen name="ProfileUpdate" component={ProfileUpdate} />
+    //       </>
+    //     ) : (
+    //       <>
+    //         <Stack.Screen name="Login" component={Login} />
+    //         <Stack.Screen name="Register" component={Register} />
+    //       </>
+    //     )}
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+    <SamplePageForTesting />
   );
 }
 
