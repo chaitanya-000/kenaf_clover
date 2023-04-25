@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   screenName: {
     fontSize: 25,
-    fontWeight: 700,
+    fontWeight: "700",
     marginBottom: "5%",
   },
   footer: {
